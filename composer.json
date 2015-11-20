@@ -1,5 +1,6 @@
 {
     "name": "ntentan/dev",
+    "description": "A dev tool for use with ntentan",
     "license": "MIT",
     "authors": [
         {
@@ -8,6 +9,9 @@
         }
     ],
     "require": {
-        "ekowabaka/clearice" : "@stable"
-    }
+        "ekowabaka/clearice" : "0.*",
+        "phpunit/phpunit": "^4.0",
+        "facebook/webdriver": "^1.0"
+    },
+    "bin" : ["bin/ntentan"]
 }
