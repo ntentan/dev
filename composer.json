@@ -8,6 +8,11 @@
             "email": "jainooson@gmail.com"
         }
     ],
+    "autoload" : {
+        "psr-4" : { 
+            "ntentan\\dev\\" : "src/"
+        }
+    },
     "require": {
         "ekowabaka/clearice" : "0.*",
         "phpunit/phpunit": "^4.0",

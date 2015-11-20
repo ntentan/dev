@@ -1,12 +1,16 @@
 #!/usr/bin/env php
 <?php
 
+require 'vendor/autoload.php';
+
 use clearice\ClearIce;
 
 ClearIce::addCommands(
-    [
-        'short' => 's',
-        'long' => 'serve',
-        'help' => 'start an ntentan server'
-    ]
+    ['command' => 'serve', 'help' => 'start the internal php server', 'class' => '\ntentan\dev\Serve'], 
+    ['command' => 'test', 'help' => 'run application tests']
 );
+
+ClearIce::addHelp();
+ClearIce::setDescription('Dev tool for ntentan');
+ClearIce::setStrict(true);
+var_dump(ClearIce::parse());
