@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+
+use clearice\ClearIce;
+
+ClearIce::addCommands(
+    [
+        'short' => 's',
+        'long' => 'serve',
+        'help' => 'start an ntentan server'
+    ]
+);
