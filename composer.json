@@ -16,6 +16,7 @@
     "require": {
         "ekowabaka/clearice" : "0.*",
         "phpunit/phpunit": "^4.0",
+        "phpunit/dbunit": "^2.0",
         "facebook/webdriver": "^1.0"
     },
     "bin" : ["bin/ntentan"]
