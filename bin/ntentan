@@ -8,17 +8,35 @@ use clearice\ClearIce;
 ClearIce::addCommands(
     [
         'command' => 'serve', 
-        'help' => 'start the internal php server', 
-        'class' => '\ntentan\dev\Serve'
+        'help' => 'Start the internal php server', 
+        'class' => '\ntentan\dev\commands\Serve'
     ], 
     [
         'command' => 'test', 
-        'help' => 'run application tests', 
-        'class' => '\ntentan\dev\Test'
+        'help' => 'Run application unit tests', 
+        'class' => '\ntentan\dev\commands\Test'
     ]
 );
 
+// Serve Options
+ClearIce::addOptions(
+    [
+        'short' => 'p', 'long' => 'port', 'has_value' => true, 
+        'command' => 'serve', 'help' => 'Server port value (defaults to 8080)'
+    ],
+    [
+        'short' => 'h', 'long' => 'host', 'has_value' => true, 
+        'command' => 'serve', 'help' => 'Host to be bound to (defaults to 127.0.0.1)'
+    ]
+);
+
+// Test Options
+ClearIce::addOptions(
+    
+);
+
 ClearIce::addHelp();
-ClearIce::setDescription('Dev tool for ntentan');
+//ClearIce::setDescription('Dev tool for ntentan');
+ClearIce::setUsage("<command> ...");
 ClearIce::setStrict(true);
 ClearIce::parse();
