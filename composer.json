@@ -18,7 +18,8 @@
         "phpunit/phpunit": "^4.0",
         "phpunit/dbunit": "^2.0",
         "facebook/webdriver": "^1.0",
-        "ekowabaka/anyen": "dev-master"
+        "ekowabaka/anyen": "dev-master",
+        "ntentan/files": "dev-master"
     },
     "bin" : ["bin/ntentan"]
 }
