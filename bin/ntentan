@@ -6,37 +6,19 @@ require 'vendor/autoload.php';
 use clearice\ClearIce;
 
 ClearIce::addCommands(
-    [
-        'command' => 'serve', 
-        'help' => 'Start the internal php server', 
-        'class' => '\ntentan\dev\commands\Serve'
-    ], 
-    [
-        'command' => 'test', 
-        'help' => 'Run application unit tests', 
-        'class' => '\ntentan\dev\commands\Test'
-    ]
-);
-
-// Serve Options
-ClearIce::addOptions(
-    [
-        'short' => 'p', 'long' => 'port', 'has_value' => true, 
-        'command' => 'serve', 'help' => 'Server port value (defaults to 8080)'
-    ],
-    [
-        'short' => 'h', 'long' => 'host', 'has_value' => true, 
-        'command' => 'serve', 'help' => 'Host to be bound to (defaults to 127.0.0.1)'
-    ]
-);
-
-// Test Options
-ClearIce::addOptions(
-    
+    '\ntentan\dev\commands\Init',
+    '\ntentan\dev\commands\Serve', 
+    '\ntentan\dev\commands\Test'
 );
 
 ClearIce::addHelp();
-//ClearIce::setDescription('Dev tool for ntentan');
-ClearIce::setUsage("<command> ...");
+ClearIce::setDescription('Ntentan PHP Framework Dev Tool');
+ClearIce::setUsage("[command] [options] ...");
 ClearIce::setStrict(true);
-ClearIce::parse();
+
+$options = ClearIce::parse();
+
+
+if(empty($options)) {
+    echo ClearIce::getHelpMessage();
+}

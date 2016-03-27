@@ -1,0 +1,7 @@
+/**
+ * Generated on <?= $date ?> by Ntentan Dev Tool
+ */
+
+require "vendor/autoload.php";
+ntentan\Ntentan::start('<?= $namespace ?>');
+
