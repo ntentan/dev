@@ -1,11 +1,13 @@
+<?php
+
 /**
  * Initial default controller.
  * Generated on <?= $date ?> by Ntentan Dev Tool
  */
  
-namespace <?= $namespace ?>\modules\home;
+namespace {{namespace}}\modules\home;
 
-use ntenan\Controller;
+use ntentan\Controller;
 
 class HomeController extends Controller
 {

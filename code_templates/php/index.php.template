@@ -1,7 +1,14 @@
+<?php
 /**
- * Generated on <?= $date ?> by Ntentan Dev Tool
+ * Generated on {{date}} by Ntentan Dev Tool
  */
 
 require "vendor/autoload.php";
-ntentan\Ntentan::start('<?= $namespace ?>');
+
+ntentan\Router::mapRoute(
+    'default', '{controller}/{action}/{*params}',
+    ['default' => ['controller' => 'Home', 'action' => 'index']]
+);
+
+ntentan\Ntentan::start('{{namespace}}');
 

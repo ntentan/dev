@@ -49,7 +49,7 @@ class Init extends TaskRunner implements Command
                     ],
                 'config',
                 'logs',
-                'views' => ['default']
+                'views' => ['default', 'home']
             ],
             './'
         );
@@ -60,12 +60,20 @@ class Init extends TaskRunner implements Command
         );
         $this->writeFile(
             __DIR__ . "/../../code_templates/php/index.php.template", 
-            $data, 'index.php', "<?php\n\n"
+            $data, 'index.php'
         );
         $this->writeFile(
             __DIR__ . "/../../code_templates/php/HomeController.php.template", 
-            $data, 'src/modules/home/index.php', "<?php\n\n"
-        );        
+            $data, 'src/modules/home/HomeController.php'
+        );       
+        $this->writeFile(
+            __DIR__ . "/../../code_templates/php/home_index.tpl.php.template", 
+            $data, 'views/default/home_index.tpl.php'
+        );  
+        $this->writeFile(
+            __DIR__ . "/../../code_templates/php/main.tpl.php.template", 
+            $data, 'views/default/main.tpl.php'
+        );          
         
         ClearIce::output("OK\n");
     }
