@@ -8,16 +8,12 @@ abstract class TaskRunner
 {
     abstract public function runTask($params);
     
-    public function writeFile($templateFile, $data, $destination)
+    public function writeFile($templateFile, $data, $destination, $prefix = '')
     {
         $output = \ntentan\honam\TemplateEngine::renderString(
-            Filesystem::get($templateFile)->getContents(), 'php', $data
+            Filesystem::get($templateFile)->getContents(), 
+            'php', $data
         );
-        Filesystem::get($destination)->putContents($output);
-    }
-    
-    public function writeCode($template, $data, $destination)
-    {
-        
+        Filesystem::get($destination)->putContents($prefix . $output);
     }
 }

@@ -43,9 +43,13 @@ class Init extends TaskRunner implements Command
         Filesystem::createDirectoryStructure(
             [
                 'src' => 
-                    ['modules', 'lib'],
+                    [
+                        'modules' => ['home'], 
+                        'lib'
+                    ],
                 'config',
-                'logs'
+                'logs',
+                'views' => ['default']
             ],
             './'
         );
@@ -54,6 +58,15 @@ class Init extends TaskRunner implements Command
             __DIR__ . "/../../code_templates/misc/htaccess.template", 
             $data, '.htaccess'
         );
+        $this->writeFile(
+            __DIR__ . "/../../code_templates/php/index.php.template", 
+            $data, 'index.php', "<?php\n\n"
+        );
+        $this->writeFile(
+            __DIR__ . "/../../code_templates/php/HomeController.php.template", 
+            $data, 'src/modules/home/index.php', "<?php\n\n"
+        );        
+        
         ClearIce::output("OK\n");
     }
 }
