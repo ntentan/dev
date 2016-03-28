@@ -19,7 +19,7 @@
         "phpunit/dbunit": "^2.0",
         "facebook/webdriver": "^1.0",
         "ekowabaka/anyen": "dev-master",
-        "mustache/mustace": "@stable"
+        "mustache/mustache": "@stable"
     },
     "bin" : ["bin/ntentan"]
 }
