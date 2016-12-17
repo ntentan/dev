@@ -14,7 +14,7 @@
         }
     },
     "require": {
-        "ekowabaka/clearice" : "0.*",
+        "ekowabaka/clearice" : "1.*",
         "phpunit/phpunit": "^4.0",
         "phpunit/dbunit": "^2.0",
         "facebook/webdriver": "^1.0",
