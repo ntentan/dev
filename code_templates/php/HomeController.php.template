@@ -5,7 +5,7 @@
  * Generated on <?= $date ?> by Ntentan Dev Tool
  */
  
-namespace {{namespace}}\modules\home;
+namespace {{namespace}}\controllers;
 
 use ntentan\Controller;
 

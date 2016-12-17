@@ -44,12 +44,12 @@ class Init extends TaskRunner implements Command
             [
                 'src' => 
                     [
-                        'modules' => ['home'], 
+                        'controllers', 
                         'lib'
                     ],
                 'config',
                 'logs',
-                'views' => ['default', 'home']
+                'views' => ['layouts', 'home', 'shared']
             ],
             './'
         );
@@ -64,15 +64,15 @@ class Init extends TaskRunner implements Command
         );
         $this->writeFile(
             __DIR__ . "/../../code_templates/php/HomeController.php.template", 
-            $data, 'src/modules/home/HomeController.php'
+            $data, 'src/controllers/HomeController.php'
         );       
         $this->writeFile(
             __DIR__ . "/../../code_templates/php/home_index.tpl.php.template", 
-            $data, 'views/default/home_index.tpl.php'
+            $data, 'views/home/index.tpl.php'
         );  
         $this->writeFile(
             __DIR__ . "/../../code_templates/php/main.tpl.php.template", 
-            $data, 'views/default/main.tpl.php'
+            $data, 'views/layouts/main.tpl.php'
         );          
         
         ClearIce::output("OK\n");

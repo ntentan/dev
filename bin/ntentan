@@ -17,7 +17,7 @@ ClearIce::setUsage("[command] [options] ...");
 ClearIce::setStrict(true);
 
 $options = ClearIce::parse();
-
+var_dump($options);
 
 if(empty($options)) {
     echo ClearIce::getHelpMessage();

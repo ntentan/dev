@@ -1,14 +1,15 @@
 <?php
 /**
- * Generated on {{date}} by Ntentan Dev Tool
+ * Generated on 2016-12-17 11:53:32 by Ntentan Dev Tool
  */
 
 require "vendor/autoload.php";
 
-ntentan\Router::mapRoute(
+use ntentan\Ntentan;
+
+Ntentan::init('zefe');
+Ntentan::getRouter()->mapRoute(
     'default', '{controller}/{action}/{*params}',
     ['default' => ['controller' => 'Home', 'action' => 'index']]
 );
-
-ntentan\Ntentan::start('{{namespace}}');
-
+Ntentan::run();
