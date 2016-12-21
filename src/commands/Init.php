@@ -2,12 +2,12 @@
 
 namespace ntentan\dev\commands;
 use clearice\ClearIce;
-use clearice\Command;
+use clearice\CommandInterface;
 use ntentan\dev\TaskRunner;
 use anyen\Runner;
 use ntentan\utils\Filesystem;
 
-class Init extends TaskRunner implements Command
+class Init extends TaskRunner implements CommandInterface
 {
     public static function getCommandOptions()
     {

@@ -2,7 +2,7 @@
 
 namespace ntentan\dev\commands;
 
-class Serve implements \clearice\Command
+class Serve implements \clearice\CommandInterface
 {
     public static function getCommandOptions()
     {
@@ -20,6 +20,10 @@ class Serve implements \clearice\Command
                     'short' => 'h', 'long' => 'host', 'has_value' => true, 
                     'help' => 'Host to be bound to (defaults to 127.0.0.1)',
                     'default' => '127.0.0.1'
+                ],
+                [
+                    'short' => 'b', 'long' => 'insert-breakpoints',
+                    'help' => 'inserts an exception handler which callsed xdebug_break()'
                 ]
             ]
         ];
@@ -29,6 +33,10 @@ class Serve implements \clearice\Command
     {
         $spec = [STDOUT, STDIN, STDERR];
         $pipes = [];
+        $config = [
+            'break-points' => $options['insert-breakpoints'] ?? false
+        ];
+        file_put_contents('config.json', json_encode($config));
         $process = proc_open(
             PHP_BINARY . " -S {$options['host']}:{$options['port']} " . __DIR__ . "/../../utils/router.php", 
             $spec, $pipes
@@ -36,5 +44,6 @@ class Serve implements \clearice\Command
         while(proc_get_status($process)['running']) {
             usleep(500);
         }
-    }
+        
+    }    
 }

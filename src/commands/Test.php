@@ -2,7 +2,7 @@
 
 namespace ntentan\dev\commands;
 
-class Test implements \clearice\Command
+class Test implements \clearice\CommandInterface
 {
     public static function getCommandOptions()
     {
