@@ -49,29 +49,30 @@ class Init extends TaskRunner implements CommandInterface
                     ],
                 'config',
                 'logs',
-                'views' => ['layouts', 'home', 'shared']
+                'views' => ['layouts', 'home', 'shared'],
+                'temp'
             ],
             './'
         );
         $data = ['namespace' => $options['namespace'], 'date' => date("Y-m-d H:i:s") ];
         $this->writeFile(
-            __DIR__ . "/../../code_templates/misc/htaccess.template", 
+            __DIR__ . "/../../templates/code/misc/htaccess.template", 
             $data, '.htaccess'
         );
         $this->writeFile(
-            __DIR__ . "/../../code_templates/php/index.php.template", 
+            __DIR__ . "/../../templates/code/php/index.php.template", 
             $data, 'index.php'
         );
         $this->writeFile(
-            __DIR__ . "/../../code_templates/php/HomeController.php.template", 
+            __DIR__ . "/../../templates/code/php/HomeController.php.template", 
             $data, 'src/controllers/HomeController.php'
         );       
         $this->writeFile(
-            __DIR__ . "/../../code_templates/php/home_index.tpl.php.template", 
+            __DIR__ . "/../../templates/code/php/home_index.tpl.php.template", 
             $data, 'views/home/index.tpl.php'
         );  
         $this->writeFile(
-            __DIR__ . "/../../code_templates/php/main.tpl.php.template", 
+            __DIR__ . "/../../templates/code/php/main.tpl.php.template", 
             $data, 'views/layouts/main.tpl.php'
         );          
         
