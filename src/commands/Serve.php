@@ -36,7 +36,7 @@ class Serve implements \clearice\CommandInterface
         $config = [
             'break-points' => $options['insert-breakpoints'] ?? false
         ];
-        file_put_contents('config.json', json_encode($config));
+        file_put_contents('~ntentan.dev.config.json', json_encode($config));
         $process = proc_open(
             PHP_BINARY . " -S {$options['host']}:{$options['port']} " . __DIR__ . "/../../utils/router.php", 
             $spec, $pipes
@@ -44,6 +44,6 @@ class Serve implements \clearice\CommandInterface
         while(proc_get_status($process)['running']) {
             usleep(500);
         }
-        
+        unlink('~ntentan.dev.config.json');
     }    
 }
