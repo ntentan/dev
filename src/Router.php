@@ -13,6 +13,7 @@ new class
             return false;
         } else {
             set_exception_handler([$this, 'exceptionHandler']);
+            //set_error_handler([$this, 'errorHandler']);
             require 'index.php';
         }
     }
@@ -35,14 +36,15 @@ new class
                 "file" => $exception->getFile()
             ]
         );
-        die();
     }
     
     public function exceptionHandler($exception) {
         $this->displayMessage($exception);
+        die();
     }
     
     public function errorHandler($error) {
-        $this->displayMessage();
+        //var_dump($error);
+        //$this->displayMessage();
     }
 };

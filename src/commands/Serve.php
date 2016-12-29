@@ -31,6 +31,8 @@ class Serve implements \clearice\CommandInterface
     
     public function run($options)
     {
+        declare(ticks = 1)
+        pcntl_signal(SIGINT, [$this, 'shutdown']);
         $spec = [STDOUT, STDIN, STDERR];
         $pipes = [];
         $config = [
@@ -44,6 +46,13 @@ class Serve implements \clearice\CommandInterface
         while(proc_get_status($process)['running']) {
             usleep(500);
         }
-        unlink('~ntentan.dev.config.json');
+        $this->shutdown();
     }    
+    
+    private function shutdown()
+    {
+        print "\nShutting down ... ";
+        unlink('~ntentan.dev.config.json');
+        print "OK\n";
+    }
 }
