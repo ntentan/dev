@@ -22,6 +22,10 @@
                 margin:0px;
                 padding:0px;
             }
+            
+            table{
+                width:100%;
+            }
         </style>
     </head>
     <body>
