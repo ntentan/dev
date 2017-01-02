@@ -8,10 +8,9 @@ new class
     
     public function __construct() {
         $this->config = json_decode(file_get_contents('~ntentan.dev.config.json'), true);
-        $requestUri = filter_input(INPUT_SERVER, 'REQUEST_URI');
+        $requestUri = filter_input(INPUT_SERVER, 'SCRIPT_NAME');
         if(!(is_file(getcwd() . $requestUri) || $requestUri == '/favicon.ico' )) {
             set_exception_handler([$this, 'exceptionHandler']);
-            //set_error_handler([$this, 'errorHandler']);
             require 'index.php';
             die();
         }
@@ -41,11 +40,7 @@ new class
         $this->displayMessage($exception);
         die();
     }
-    
-    public function errorHandler($error) {
-        //var_dump($error);
-        //$this->displayMessage();
-    }
 };
 
 return false;
+
