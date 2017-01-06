@@ -40,7 +40,7 @@ class Serve implements \clearice\CommandInterface
         ];
         file_put_contents('~ntentan.dev.config.json', json_encode($config));
         $process = proc_open(
-            PHP_BINARY . " -d cli_server.color=1 -S {$options['host']}:{$options['port']} " . __DIR__ . "/../../src/Router.php", 
+            PHP_BINARY . " -d cli_server.color=1 -S {$options['host']}:{$options['port']} " . __DIR__ . "/../../src/PageRouter.php", 
             $spec, $pipes
         );
         while(proc_get_status($process)['running']) {
