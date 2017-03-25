@@ -15,9 +15,10 @@ ClearIce::addHelp();
 ClearIce::setDescription('Ntentan PHP Framework Dev Tool');
 ClearIce::setUsage("[command] [options] ...");
 ClearIce::setStrict(true);
+ClearIce::setFootnote('Report all bugs to jainooson@gmail.com');
 
 $options = ClearIce::parse();
 
-if(empty($options)) {
+if(empty($options) || count($options['stand_alones'] ?? []) > 0) {
     echo ClearIce::getHelpMessage();
 }
