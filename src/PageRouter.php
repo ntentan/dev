@@ -2,8 +2,8 @@
 
 use ntentan\honam\TemplateEngine;
 
-new class 
-{    
+new class {
+    
     private $config;
     
     public function __construct() {
