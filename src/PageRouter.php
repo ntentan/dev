@@ -25,13 +25,12 @@ new class {
         ob_clean();
         $reflection = new ReflectionClass($exception);
         TemplateEngine::prependPath(__DIR__ . '/../templates/pages');
+        $template = 'exception';
         foreach (headers_list() as $header) {
             preg_match("/(?<header>.*):(?<value>.*)/", $header, $matches);
             if($matches['header'] == 'Content-Type') {
                 if(trim($matches['value']) != 'text/html') {
                     $template = 'plain-exception';
-                } else {
-                    $template = 'exception';
                 }
                 break;
             } 
