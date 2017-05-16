@@ -26,6 +26,7 @@ new class {
         $reflection = new ReflectionClass($exception);
         TemplateEngine::prependPath(__DIR__ . '/../templates/pages');
         $template = 'exception';
+        http_response_code(500);
         foreach (headers_list() as $header) {
             preg_match("/(?<header>.*):(?<value>.*)/", $header, $matches);
             if($matches['header'] == 'Content-Type') {
