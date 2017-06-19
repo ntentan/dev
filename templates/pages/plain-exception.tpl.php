@@ -1,7 +1,7 @@
 <?php
-$stream = defined('STDERR') ? STDERR : fopen("php://output", w);
+$stream = defined('STDERR') ? STDERR : fopen("php://output", 'w');
 fputs($stream, "Ntentan Error!\n");
-fputs($stream, strip_tags($message . "\n\n"));
+fputs($stream, "Uncaught exception $type with message: \"$message\" thrown on line $line $file");
 $max = 0;
 $formated_trace = [];
 foreach ($stack_trace as $trace_item) {
