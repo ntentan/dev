@@ -2,17 +2,18 @@
 
 /**
  * Initial default controller.
- * Generated on <?= $date ?> by Ntentan Dev Tool
+ * Generated on {{date}} by Ntentan Dev Tool
  */
  
-namespace {{namespace}}\controllers;
+namespace site\controllers;
 
 use ntentan\Controller;
+use ntentan\View;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(View $view)
     {
-    
+        return $view;
     }
 }
