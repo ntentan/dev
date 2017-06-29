@@ -1,4 +1,9 @@
 <?php
+/**
+ * Application entry.
+ * Generated on {{date}} by Ntentan Dev Tool
+ */
+
 require "vendor/autoload.php";
 
 use ntentan\Context;
@@ -8,4 +13,5 @@ $context->getRouter()->mapRoute(
     'default', '{controller}/{action}/{*params}',
     ['default' => ['controller' => 'Home', 'action' => 'index']]
 );
+
 $context->execute();
