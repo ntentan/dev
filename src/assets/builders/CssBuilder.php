@@ -3,7 +3,7 @@ namespace ntentan\dev\assets\builders;
 
 use ntentan\dev\assets\AssetBuilder;
 
-class JsBuilder extends AssetBuilder
+class CssBuilder extends AssetBuilder
 {
     public function build() {
         $output = "";

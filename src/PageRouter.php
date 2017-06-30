@@ -1,6 +1,10 @@
 <?php
 
+require 'vendor/autoload.php';
+
 use ntentan\honam\TemplateEngine;
+use ntentan\dev\assets\AssetPipeline;
+use ntentan\wyf\utilities\forms\Container;
 
 new class {
     
@@ -12,6 +16,11 @@ new class {
         $requestFile = explode('?', $requestUri)[0];
         if(!(is_file(getcwd() . $requestFile) || $requestFile == '/favicon.ico' )) {
             set_exception_handler([$this, 'exceptionHandler']);
+            if(file_exists('asset_pipeline.php')){
+                $container = new Container();
+                AssetPipeline::setup('public');
+                require 'asset_pipeline.php';
+            }
             require 'index.php';
             die();
         }

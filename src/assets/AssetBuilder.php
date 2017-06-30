@@ -1,10 +1,27 @@
 <?php
 namespace ntentan\dev\assets;
 
+use ntentan\utils\Filesystem;
+
 abstract class AssetBuilder
 {
     protected $inputs;
+  
+    protected $isTemp = true;
     
+    private $output;
+    
+    public function __construct() {
+        $this->output = rand(0, 10000000);
+    }
+    
+    public function __destruct() {
+        $outputFile = $this->getOutputFile();
+        if($this->isTemp && file_exists($outputFile)) {
+            unlink($this->getOutputFile());
+        }
+    }
+
     /**
      * Set the input paths to the assets used by this builder.
      * 
@@ -15,6 +32,13 @@ abstract class AssetBuilder
         foreach($inputs as $file) {
             Filesystem::checkExists($file);
         }
+    }
+    
+    public function output($output)
+    {
+        $this->output = $output;
+        $this->isTemp = false;
+        return $this;
     }
     
     /**
@@ -36,7 +60,35 @@ abstract class AssetBuilder
         return false;
     }
     
-    abstract public function getOutputFile();
+    public function setIsTemp($isTemp) 
+    {
+        $this->isTemp = $isTemp;
+    }
+    
+    public function getIsTemp()
+    {
+        return $this->isTemp;
+    }
+    
+    public function getOutputFile()
+    {
+        $file = AssetPipeline::getAssetsDirectory() . "/{$this->output}";
+        $directory = dirname($file);
+        if(!file_exists($directory)) {
+            mkdir($directory, 0700, true);
+        }
+        return $file;
+    }
+    
+    public function __toString() {
+        $this->build();
+        return $this->getOutputFile();
+    }
+    
+    public function setAssetsDirectory($assetsDirectory)
+    {
+        $this->assetsDirectory = $assetsDirectory;
+    }
     
     abstract public function build();
 }
