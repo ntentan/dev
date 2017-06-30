@@ -18,6 +18,7 @@ class AssetPipeline
         self::$container->bind("js_builder")->to(builders\JsBuilder::class);
         self::$container->bind("css_builder")->to(builders\CssBuilder::class);
         self::$container->bind("copy_builder")->to(builders\CopyBuilder::class);
+        self::$container->bind("sass_builder")->to(builders\SassBuilder::class);
         self::$outputDirectory = $outputDirectory;
     }
     

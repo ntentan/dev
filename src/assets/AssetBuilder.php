@@ -90,5 +90,11 @@ abstract class AssetBuilder
         $this->assetsDirectory = $assetsDirectory;
     }
     
+    public function addInput($input)
+    {
+        $this->inputs += is_array($input) ? $input : [$input];
+    }
+
+
     abstract public function build();
 }
