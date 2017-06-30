@@ -29,12 +29,9 @@ abstract class AssetBuilder
      */
     public function setInputs($inputs) {
         $this->inputs = $inputs;
-        foreach($inputs as $file) {
-            Filesystem::checkExists($file);
-        }
     }
     
-    public function output($output)
+    public function setOutput($output)
     {
         $this->output = $output;
         $this->isTemp = false;
@@ -53,8 +50,11 @@ abstract class AssetBuilder
         }
         $outputModificationTime = filemtime($outputFile);
         foreach($this->inputs as $input) {
-            if($outputModificationTime < filemtime($input)) {
-                return true;
+            $files = glob($input);
+            foreach($files as $file){
+                if($outputModificationTime < filemtime($file)) {
+                    return true;
+                }
             }
         }
         return false;
