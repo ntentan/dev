@@ -1,8 +1,9 @@
 <?php
 namespace ntentan\dev\assets;
 
-use ntentan\utils\Filesystem;
-
+/**
+ * 
+ */
 abstract class AssetBuilder
 {
     protected $inputs;
@@ -38,13 +39,30 @@ abstract class AssetBuilder
         return $this;
     }
     
+    protected function expandInputs()
+    {
+        $files = [];
+        foreach($this->inputs as $input)
+        {
+            $files += glob($input);
+        }
+        return $files;
+    }
+    
     /**
      * Checks if any of the input files have changed since last build.
+     * For builders that have inputs piped from other builders, this method
+     * uses the inputs of the piped builders to recursively reach all input 
+     * files required that are fed to the builder.
      * 
+     * @param strin $outputFile The output file against which inputs are compared for newness.
      * @return boolean
      */
-    public function hasChanges() {
-        $outputFile = $this->getOutputFile();
+    public function hasChanges($outputFile = null) 
+    {
+        
+        // Use the default output file of this builder if none was passed
+        $outputFile = $outputFile ?? $this->getOutputFile();
         if(!file_exists($outputFile)){
             return true;
         }
@@ -52,7 +70,14 @@ abstract class AssetBuilder
         foreach($this->inputs as $input) {
             $files = glob($input);
             foreach($files as $file){
-                if($outputModificationTime < filemtime($file)) {
+                if(is_a($input, self::class)) {
+                    // Recursively check for changes in piped assets.
+                    if($input->hasChanges($outputFile)) {
+                        return true;
+                    } else {
+                        continue;
+                    }
+                } else if ($outputModificationTime < filemtime($file)) {
                     return true;
                 }
             }
@@ -89,12 +114,6 @@ abstract class AssetBuilder
     {
         $this->assetsDirectory = $assetsDirectory;
     }
-    
-    public function addInput($input)
-    {
-        $this->inputs += is_array($input) ? $input : [$input];
-    }
-
 
     abstract public function build();
 }

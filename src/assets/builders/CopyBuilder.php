@@ -11,11 +11,9 @@ class CopyBuilder extends AssetBuilder
     {
         $outputDirectory = $this->getOutputFile();
         mkdir($outputDirectory);
-        foreach($this->inputs as $input) {
-            $files = glob($input);
-            foreach($files as $file) {
-                copy($file, $outputDirectory . '/' . basename($file));
-            }
+        $files = $this->expandInputs();
+        foreach($files as $file) {
+            copy($file, $outputDirectory . '/' . basename($file));
         }
     }
 

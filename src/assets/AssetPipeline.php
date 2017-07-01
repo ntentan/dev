@@ -36,7 +36,9 @@ class AssetPipeline
     {
         foreach($builders as $builder) {
             if($builder->hasChanges()) {
+                
                 $builder->build();
+                error_log("Building asset [{$builder->getOutputFile()}]");
             }
         }
     }
