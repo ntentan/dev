@@ -13,7 +13,7 @@
             "ntentan\\dev\\" : "src/"
         }
     },
-    "require-dev": {
+    "require": {
         "ekowabaka/clearice" : "1.*",
         "phpunit/phpunit": "^4.0",
         "phpunit/dbunit": "^2.0",

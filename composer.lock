@@ -4,9 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "768a6c3b354477ee23a19b7f2c78ee76",
-    "packages": [],
-    "packages-dev": [
+    "content-hash": "5dcc00bc7e96017dba48a5ce835c5b26",
+    "packages": [
         {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
@@ -92,7 +91,7 @@
                 }
             ],
             "description": "A simple wizard creation tool. Anyen helps you to create wizards that work both on the CLI and the web interface.",
-            "time": "2016-04-10T09:51:41+00:00"
+            "time": "2016-04-10 09:51:41"
         },
         {
             "name": "ekowabaka/clearice",
@@ -1397,6 +1396,7 @@
             "time": "2016-11-23T20:04:58+00:00"
         }
     ],
+    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
