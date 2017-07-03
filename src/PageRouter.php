@@ -61,3 +61,5 @@ new class {
     }
 };
 
+// If we made it this far then yield so php handles the rest
+return false;
