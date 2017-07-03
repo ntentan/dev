@@ -46,7 +46,12 @@ abstract class AssetBuilder
     {
         $files = [];
         foreach ($this->inputs as $input) {
-            $files = array_merge($files, glob($input));
+            $resolvedFiles = glob($input);
+            if(count($resolvedFiles)) {
+                $files = array_merge($files, $resolvedFiles);
+            } else {
+                error_log("Failed to find [{$input}]");
+            }
         }
         return $files;
     }
