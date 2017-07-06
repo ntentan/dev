@@ -19,6 +19,6 @@ class SassBuilder extends AssetBuilder
 {
     public function build() 
     {
-        passthru("sass --sourcemap=none {$this->inputs[0]} {$this->getOutputFile()}");
+        passthru("sassc {$this->inputs[0]} {$this->getOutputFile()}");
     }
 }

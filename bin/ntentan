@@ -8,7 +8,8 @@ use clearice\ClearIce;
 ClearIce::addCommands(
     '\ntentan\dev\commands\Init',
     '\ntentan\dev\commands\Serve', 
-    '\ntentan\dev\commands\Test'
+    '\ntentan\dev\commands\Test',
+    '\ntentan\dev\commands\Build'
 );
 
 ClearIce::addHelp();

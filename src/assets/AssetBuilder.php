@@ -107,7 +107,7 @@ abstract class AssetBuilder
         $file = AssetPipeline::getAssetsDirectory() . "/{$this->output}";
         $directory = dirname($file);
         if (!file_exists($directory)) {
-            mkdir($directory, 0700, true);
+            mkdir($directory, 0755, true);
         }
         return $file;
     }
