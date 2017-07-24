@@ -84,7 +84,8 @@ abstract class AssetBuilder
                     } else {
                         continue;
                     }
-                } else if ($outputModificationTime < filemtime($file)) {
+                } 
+                if ($outputModificationTime < filemtime($file)) {
                     return true;
                 }
             }

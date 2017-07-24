@@ -19,6 +19,13 @@ class SassBuilder extends AssetBuilder
 {
     public function build() 
     {
-        passthru("sassc {$this->inputs[0]} {$this->getOutputFile()}");
+        $code = "";
+        foreach($this->expandInputs() as $input) {
+            $code .= "@import \"$input\";\n";
+        }
+        $temp = "{$this->getOutputFile()}_temp.scss";
+        file_put_contents($temp, $code);
+        passthru("sassc {$temp} {$this->getOutputFile()}");
+        unlink($temp);
     }
 }
