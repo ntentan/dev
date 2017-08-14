@@ -3,7 +3,9 @@
 namespace ntentan\dev\assets;
 
 /**
- * 
+ * Base class for all asset builders.
+ * This class provides methods that allow asset builders to receive inputs;
+ * detect changes between built assets and sources; and write out built assets. 
  */
 abstract class AssetBuilder
 {
@@ -46,7 +48,7 @@ abstract class AssetBuilder
     {
         $files = [];
         foreach ($this->inputs as $input) {
-            $resolvedFiles = glob($input);
+            $resolvedFiles = array_map(function($path){return realpath($path);}, glob($input));
             if(count($resolvedFiles)) {
                 $files = array_merge($files, $resolvedFiles);
             } else {
@@ -62,7 +64,7 @@ abstract class AssetBuilder
      * uses the inputs of the piped builders to recursively reach all input 
      * files required that are fed to the builder.
      * 
-     * @param strin $outputFile The output file against which inputs are compared for newness.
+     * @param string $outputFile The output file against which inputs are compared for newness.
      * @return boolean
      */
     public function hasChanges($outputFile = null)
