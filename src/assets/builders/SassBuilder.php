@@ -25,7 +25,7 @@ class SassBuilder extends AssetBuilder
         }
         $temp = "{$this->getOutputFile()}_temp.scss";
         file_put_contents($temp, $code);
-        passthru("sassc {$temp} {$this->getOutputFile()}");
+        passthru("sassc -I . {$temp} {$this->getOutputFile()}");
         unlink($temp);
     }
 }
