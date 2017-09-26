@@ -2,10 +2,9 @@
 
 namespace ntentan\dev\commands;
 
-use clearice\CommandInterface;
 use ntentan\dev\assets\AssetPipeline;
 
-class Build implements CommandInterface
+class Build
 {
     
     public static function getCommandOptions()

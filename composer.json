@@ -14,10 +14,7 @@
         }
     },
     "require": {
-        "ekowabaka/clearice" : "1.*",
-        "phpunit/phpunit": "@stable",
-        "phpunit/dbunit": "@stable",
-        "facebook/webdriver": "@stable",
+        "ekowabaka/clearice" : "^2.0",
         "ekowabaka/anyen": "@stable",
         "mustache/mustache": "@stable"
     },

@@ -3,23 +3,55 @@
 
 require 'vendor/autoload.php';
 
-use clearice\ClearIce;
+use clearice\ArgumentParser;
+use clearice\ConsoleIO;
+use ntentan\dev\commands\Init;
+use ntentan\dev\commands\Build;
+use ntentan\dev\commands\Serve;
 
-ClearIce::addCommands(
+/*$parser->addCommands(
     '\ntentan\dev\commands\Init',
     '\ntentan\dev\commands\Serve', 
     '\ntentan\dev\commands\Test',
     '\ntentan\dev\commands\Build'
-);
+);*/
 
-ClearIce::addHelp();
-ClearIce::setDescription('Ntentan PHP Framework Dev Tool');
-ClearIce::setUsage("[command] [options] ...");
-ClearIce::setStrict(true);
-ClearIce::setFootnote('Report all bugs to jainooson@gmail.com');
+$parser = new ArgumentParser(new ConsoleIO());
 
-$options = ClearIce::parse();
+$parser->addCommands([
+    ['command' => 'init', 'help' => 'Initialize this directory with the ntentan framework', 'data' => Init::class],
+    ['command' => 'serve', 'help' => 'Start the internal php server', 'data' => Serve::class],
+    ['command' => 'build', 'help' => 'Run builds scripts to build assets and resources', 'data' => Build::class]
+]);
+
+$parser->addOptions([
+    [
+        'short' => 'p', 'long' => 'port', 'has_value' => true, 
+        'help' => 'Server port value (defaults to 8080)',
+        'default' => '8080',
+        'command' => 'serve'
+    ],
+    [
+        'short' => 'h', 'long' => 'host', 'has_value' => true, 
+        'help' => 'Host to be bound to (defaults to 127.0.0.1)',
+        'default' => '127.0.0.1',
+        'command' => 'serve'
+    ],
+    [
+        'short' => 'b', 'long' => 'insert-breakpoints',
+        'help' => 'inserts an exception handler which callsed xdebug_break()',
+        'command' => 'serve'
+    ]
+]);
+
+$parser->addHelp();
+$parser->setDescription('Ntentan PHP Framework Dev Tool');
+$parser->setUsage("[command] [options] ...");
+$parser->setStrict(true);
+$parser->setFootnote('Report all bugs to jainooson@gmail.com');
+
+$options = $parser->parse($argv);
 
 if(empty($options) || count($options['stand_alones'] ?? []) > 0) {
-    echo ClearIce::getHelpMessage();
+    echo $parser->getHelpMessage();
 }

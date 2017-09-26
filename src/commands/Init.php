@@ -2,28 +2,18 @@
 
 namespace ntentan\dev\commands;
 
-use clearice\ClearIce;
-use clearice\CommandInterface;
+use clearice\ConsoleIO;
 use ntentan\dev\TaskRunner;
 use anyen\Runner;
 use ntentan\utils\Filesystem;
 
-class Init extends TaskRunner implements CommandInterface
+class Init extends TaskRunner
 {
+    private $io;
 
-    public static function getCommandOptions()
+    public function __construct(ConsoleIO $io)
     {
-        return [
-            'command' => 'init',
-            'help' => 'Initialize this directory with the ntentan framework',
-            'options' => [
-                [
-                    'short' => 'n',
-                    'long' => 'namespace',
-                    'help' => 'Specify the namespace of the app\'s classes'
-                ]
-            ]
-        ];
+        $this->io = $io;
     }
 
     public function run($options)
@@ -39,7 +29,7 @@ class Init extends TaskRunner implements CommandInterface
 
     public function runTask($options)
     {
-        ClearIce::output("Setting up app namespace {$options['namespace']} ... ");
+        $this->io->output("Setting up app namespace {$options['namespace']} ... ");
         Filesystem::createDirectoryStructure(
                 [
             'src' =>
@@ -54,23 +44,13 @@ class Init extends TaskRunner implements CommandInterface
                 ], './'
         );
         $data = ['namespace' => $options['namespace'], 'date' => date("Y-m-d H:i:s")];
-        $this->writeFile(
-                __DIR__ . "/../../templates/code/misc/htaccess.template", $data, '.htaccess'
-        );
-        $this->writeFile(
-                __DIR__ . "/../../templates/code/php/index.php.template", $data, 'index.php'
-        );
-        $this->writeFile(
-                __DIR__ . "/../../templates/code/php/HomeController.php.template", $data, 'src/controllers/HomeController.php'
-        );
-        $this->writeFile(
-                __DIR__ . "/../../templates/code/php/home_index.tpl.php.template", $data, 'views/home/index.tpl.php'
-        );
-        $this->writeFile(
-                __DIR__ . "/../../templates/code/php/main.tpl.php.template", $data, 'views/layouts/main.tpl.php'
-        );
+        $this->writeFile(__DIR__ . "/../../templates/code/misc/htaccess.template", $data, '.htaccess');
+        $this->writeFile(__DIR__ . "/../../templates/code/php/index.php.template", $data, 'index.php');
+        $this->writeFile(__DIR__ . "/../../templates/code/php/HomeController.php.template", $data, 'src/controllers/HomeController.php');
+        $this->writeFile(__DIR__ . "/../../templates/code/php/home_index.tpl.php.template", $data, 'views/home/index.tpl.php');
+        $this->writeFile(__DIR__ . "/../../templates/code/php/main.tpl.php.template", $data, 'views/layouts/main.tpl.php');
 
-        ClearIce::output("OK\n");
+        $this->io->output("OK\n");
     }
 
 }
