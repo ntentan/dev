@@ -8,6 +8,7 @@ use clearice\ConsoleIO;
 use ntentan\dev\commands\Init;
 use ntentan\dev\commands\Build;
 use ntentan\dev\commands\Serve;
+use ntentan\panie\Container;
 
 
 $parser = new ArgumentParser(new ConsoleIO());
@@ -34,8 +35,24 @@ $parser->addOptions([
         'short' => 'b', 'long' => 'insert-breakpoints',
         'help' => 'inserts an exception handler which callsed xdebug_break()',
         'command' => 'serve'
+    ],
+
+    // Options for build command
+    [
+        'short' => 'p', 'long' => 'public-dir', 'has_value' => true,
+        'help' => 'Location of public directory',
+        'default' => 'public',
+        'command' => 'build'
+    ],
+    [
+        'short' => 'a', 'long' => 'asset-pipeline', 'has_value' => true,
+        'help' => 'Location of the asset pipeline file',
+        'default' => 'asset_pipeline.php',
+        'command' => 'build'
     ]
 ]);
+
+
 
 $parser->addHelp();
 $parser->setDescription('Ntentan PHP Framework Dev Tool');
@@ -47,4 +64,8 @@ $options = $parser->parse($argv);
 
 if(empty($options) || count($options['stand_alones'] ?? []) > 0) {
     echo $parser->getHelpMessage();
+    exit(1);
 }
+
+$container = new Container();
+$container->resolve($options['data'])->run($options);

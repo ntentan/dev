@@ -6,21 +6,18 @@ use ntentan\dev\assets\AssetPipeline;
 
 class Build
 {
+    private $assetPipeline;
 
-    public static function getCommandOptions()
+    public function __construct(AssetPipeline $assetPipeline)
     {
-        return [
-            'command' => 'build',
-            'help' => 'Build the assets required for the application',
-            'class' => '\ntentan\dev\commands\Build'
-        ];
+        $this->assetPipeline = $assetPipeline;
     }
 
     public function run($options)
     {
         if (file_exists('asset_pipeline.php')) {
-            AssetPipeline::setup('public');
-            require 'asset_pipeline.php';
+            $this->assetPipeline->setup($options['public-dir']);
+            require $options['asset-pipeline'];
         }
     }
 
