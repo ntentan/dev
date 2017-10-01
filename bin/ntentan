@@ -9,17 +9,10 @@ use ntentan\dev\commands\Init;
 use ntentan\dev\commands\Build;
 use ntentan\dev\commands\Serve;
 
-/*$parser->addCommands(
-    '\ntentan\dev\commands\Init',
-    '\ntentan\dev\commands\Serve', 
-    '\ntentan\dev\commands\Test',
-    '\ntentan\dev\commands\Build'
-);*/
 
 $parser = new ArgumentParser(new ConsoleIO());
 
 $parser->addCommands([
-    ['command' => 'init', 'help' => 'Initialize this directory with the ntentan framework', 'data' => Init::class],
     ['command' => 'serve', 'help' => 'Start the internal php server', 'data' => Serve::class],
     ['command' => 'build', 'help' => 'Run builds scripts to build assets and resources', 'data' => Build::class]
 ]);
