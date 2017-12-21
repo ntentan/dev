@@ -15,8 +15,8 @@ new class {
         $requestFile = explode('?', $requestUri)[0];
         if(!(is_file(getcwd() . $requestFile) || $requestFile == '/favicon.ico' )) {
             //set_exception_handler([$this, 'exceptionHandler']);
-            if(file_exists('asset_pipeline.php')){
-                AssetPipeline::setup('public');
+            if(file_exists('asset_pipeline.php') && file_exists('public')){
+                AssetPipeline::setup(['public-dir' => 'public', 'asset-pipeline' => 'asset_pipeline.php']);
                 require 'asset_pipeline.php';
             }
             require 'index.php';
