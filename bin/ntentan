@@ -49,6 +49,11 @@ $parser->addOptions([
         'help' => 'Location of the asset pipeline file',
         'default' => 'asset_pipeline.php',
         'command' => 'build'
+    ],
+    [
+        'short' => 'f', 'long' => 'force', 'has_value' => false,
+        'help' => 'Force rebuild of all assets',
+        'command' => 'build'
     ]
 ]);
 

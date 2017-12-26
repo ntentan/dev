@@ -12,6 +12,7 @@ class AssetPipeline
     private static $outputDirectory;
     private static $pipelineFile;
     private static $container;
+    private static $forcedRebuild;
     
     public static function setup($options)
     {
@@ -22,6 +23,7 @@ class AssetPipeline
         self::$container->bind("sass_builder")->to(builders\SassBuilder::class);
         self::$outputDirectory = $options['public-dir'];
         self::$pipelineFile = $options['asset-pipeline'];
+        self::$forcedRebuild = $options['force'] ?? false;
     }
     
     public static function getAssetsDirectory()
@@ -40,7 +42,7 @@ class AssetPipeline
         foreach($builders as $builder) {
             $outputFile = $builder->getOutputFile();
             $lastModified = file_exists($outputFile) ? filemtime($outputFile) : time();
-            if($builder->hasChanges() || $lastModified < $pipelineLastModified) {
+            if($builder->hasChanges() || $lastModified < $pipelineLastModified || self::$forcedRebuild) {
                 $builder->build();
                 error_log("Building asset [{$builder->getOutputFile()}]");
             }
