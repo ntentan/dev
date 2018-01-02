@@ -21,6 +21,7 @@ class AssetPipeline
         self::$container->bind("css_builder")->to(builders\CssBuilder::class);
         self::$container->bind("copy_builder")->to(builders\CopyBuilder::class);
         self::$container->bind("sass_builder")->to(builders\SassBuilder::class);
+        self::$container->bind("browserify_builder")->to(builders\BrowserifyBuilder::class);
         self::$outputDirectory = $options['public-dir'];
         self::$pipelineFile = $options['asset-pipeline'];
         self::$forcedRebuild = $options['force'] ?? false;
