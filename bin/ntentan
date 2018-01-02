@@ -33,7 +33,12 @@ $parser->addOptions([
     ],
     [
         'short' => 'b', 'long' => 'insert-breakpoints',
-        'help' => 'inserts an exception handler which callsed xdebug_break()',
+        'help' => 'inserts an exception handler which calls xdebug_break()',
+        'command' => 'serve'
+    ],
+    [
+        'short' => 'd', 'long' => 'disable-asset-builder',
+        'help' => 'do not build assets on every request',
         'command' => 'serve'
     ],
 

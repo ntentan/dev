@@ -9,11 +9,8 @@ class Serve
         declare(ticks = 1)
         pcntl_signal(SIGINT, [$this, 'shutdown']);
         $spec = [STDOUT, STDIN, STDERR];
-        $pipes = [];
-        $config = [
-            'break-points' => $options['insert-breakpoints'] ?? false
-        ];
-        file_put_contents('~ntentan.dev.config.json', json_encode($config));
+        $pipes = [];;
+        file_put_contents('~ntentan.dev.config.json', json_encode($options));
         $process = proc_open(
             PHP_BINARY . " -d cli_server.color=1 -S {$options['host']}:{$options['port']} " . __DIR__ . "/../../src/PageRouter.php", 
             $spec, $pipes
