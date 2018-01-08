@@ -40,6 +40,7 @@ class AssetPipeline
     public static function define(AssetBuilder ...$builders) 
     {
         $pipelineLastModified = filemtime(self::$pipelineFile);
+        error_log("Looking for modified assets to rebuild ...");
         foreach($builders as $builder) {
             $outputFile = $builder->getOutputFile();
             $lastModified = file_exists($outputFile) ? filemtime($outputFile) : time();

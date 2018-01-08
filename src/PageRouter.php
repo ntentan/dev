@@ -15,7 +15,7 @@ new class {
         $requestFile = explode('?', $requestUri)[0];
         if(!(is_file(getcwd() . $requestFile) || $requestFile == '/favicon.ico' )) {
             //set_exception_handler([$this, 'exceptionHandler']);
-            if(file_exists('asset_pipeline.php') && file_exists('public') && !isset($this->config['disable-asset-builder'])){
+            if($this->rebuildAssets()){
                 AssetPipeline::setup(['public-dir' => 'public', 'asset-pipeline' => 'asset_pipeline.php']);
                 require 'asset_pipeline.php';
             }
@@ -23,41 +23,11 @@ new class {
             die();
         }
     }
-    
-    /**
-     * 
-     * @param \Exception $exception
-     */
-    public function displayMessage($exception) {
-        ob_clean();
-        $reflection = new ReflectionClass($exception);
-        TemplateEngine::prependPath(__DIR__ . '/../templates/pages');
-        $template = 'exception';
-        http_response_code(500);
-        foreach (headers_list() as $header) {
-            preg_match("/(?<header>.*):(?<value>.*)/", $header, $matches);
-            if($matches['header'] == 'Content-Type') {
-                if(trim($matches['value']) != 'text/html') {
-                    $template = 'plain-exception';
-                }
-                break;
-            } 
-        }
-        print TemplateEngine::render(
-            $template, 
-            [
-                "type" => $reflection->getName(),
-                "message" => $exception->getMessage(),
-                "stack_trace" => $exception->getTrace(),
-                "line" => $exception->getLine(),
-                "file" => $exception->getFile()
-            ]
-        );
-    }
-    
-    public function exceptionHandler($exception) {
-        $this->displayMessage($exception);
-        die();
+
+    private function rebuildAssets() {
+        return file_exists('asset_pipeline.php')
+            && !isset($this->config['disable-asset-builder'])
+            && strtolower(filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH')) != 'xmlhttprequest';
     }
 };
 
