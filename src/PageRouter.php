@@ -15,6 +15,7 @@ new class {
         $requestFile = explode('?', $requestUri)[0];
         if(!(is_file(getcwd() . $requestFile) || $requestFile == '/favicon.ico' )) {
             //set_exception_handler([$this, 'exceptionHandler']);
+            error_log("Serving: $requestUri");
             if($this->rebuildAssets()){
                 AssetPipeline::setup(['public-dir' => 'public', 'asset-pipeline' => 'asset_pipeline.php']);
                 require 'asset_pipeline.php';
@@ -25,9 +26,10 @@ new class {
     }
 
     private function rebuildAssets() {
+        $client = strtolower(filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH'));
         return file_exists('asset_pipeline.php')
             && !isset($this->config['disable-asset-builder'])
-            && strtolower(filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH')) != 'xmlhttprequest';
+            && $client != 'xmlhttprequest';
     }
 };
 
