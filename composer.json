@@ -14,8 +14,9 @@
         }
     },
     "require": {
-        "ekowabaka/clearice" : "^2.0",
-        "mustache/mustache": "@stable"
+        "ekowabaka/clearice" : "dev-dev",
+        "mustache/mustache": "@stable",
+        "ntentan/panie": "dev-dev"
     },
     "bin" : ["bin/ntentan"]
 }

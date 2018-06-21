@@ -3,69 +3,58 @@
 
 require 'vendor/autoload.php';
 
-use clearice\ArgumentParser;
-use clearice\ConsoleIO;
+use clearice\argparser\ArgumentParser;
 use ntentan\dev\commands\Init;
 use ntentan\dev\commands\Build;
 use ntentan\dev\commands\Serve;
 use ntentan\panie\Container;
 
 
-$parser = new ArgumentParser(new ConsoleIO());
+$parser = new ArgumentParser();
 
-$parser->addCommands([
-    ['command' => 'serve', 'help' => 'Start the internal php server', 'data' => Serve::class],
-    ['command' => 'build', 'help' => 'Run builds scripts to build assets and resources', 'data' => Build::class]
+$parser->addCommand(['name' => 'serve', 'help' => 'Start the internal php server']);
+$parser->addCommand(['name' => 'build', 'help' => 'Run builds scripts to build assets and resources']);
+
+$parser->addOption([
+    'short_name' => 'p', 'name' => 'port', 'has_value' => true, 
+    'help' => 'Server port value (defaults to 8080)',
+    'default' => '8080',
+    'command' => 'serve'
+]);
+$parser->addOption([
+    'short_name' => 'h', 'name' => 'host', 'has_value' => true, 
+    'help' => 'Host to be bound to (defaults to 127.0.0.1)',
+    'default' => '127.0.0.1',
+    'command' => 'serve'
+]);
+$parser->addOption([
+    'short_name' => 'b', 'name' => 'insert-breakpoints',
+    'help' => 'inserts an exception handler which callsed xdebug_break()',
+    'command' => 'serve'
 ]);
 
-$parser->addOptions([
-    [
-        'short' => 'p', 'long' => 'port', 'has_value' => true, 
-        'help' => 'Server port value (defaults to 8080)',
-        'default' => '8080',
-        'command' => 'serve'
-    ],
-    [
-        'short' => 'h', 'long' => 'host', 'has_value' => true, 
-        'help' => 'Host to be bound to (defaults to 127.0.0.1)',
-        'default' => '127.0.0.1',
-        'command' => 'serve'
-    ],
-    [
-        'short' => 'b', 'long' => 'insert-breakpoints',
-        'help' => 'inserts an exception handler which callsed xdebug_break()',
-        'command' => 'serve'
-    ],
-
-    // Options for build command
-    [
-        'short' => 'p', 'long' => 'public-dir', 'has_value' => true,
-        'help' => 'Location of public directory',
-        'default' => 'public',
-        'command' => 'build'
-    ],
-    [
-        'short' => 'a', 'long' => 'asset-pipeline', 'has_value' => true,
-        'help' => 'Location of the asset pipeline file',
-        'default' => 'asset_pipeline.php',
-        'command' => 'build'
-    ]
+// Options for build command
+$parser->addOption([
+    'short_name' => 'p', 'name' => 'public-dir', 'has_value' => true,
+    'help' => 'Location of public directory',
+    'default' => 'public',
+    'command' => 'build'
+]);
+$parser->addOption([
+    'short_name' => 'a', 'name' => 'asset-pipeline', 'has_value' => true,
+    'help' => 'Location of the asset pipeline file',
+    'default' => 'asset_pipeline.php',
+    'command' => 'build'
 ]);
 
+$parser->enableHelp('Ntentan PHP Framework Dev Tool');
+$options = $parser->parse();
 
-
-$parser->addHelp();
-$parser->setDescription('Ntentan PHP Framework Dev Tool');
-$parser->setUsage("[command] [options] ...");
-$parser->setStrict(true);
-$parser->setFootnote('Report all bugs to jainooson@gmail.com');
-
-$options = $parser->parse($argv);
-
-if(empty($options) || count($options['stand_alones'] ?? []) > 0) {
+if(!isset($options['__command'])) {
     echo $parser->getHelpMessage();
     exit(1);
 }
 
 $container = new Container();
-$container->resolve($options['data'])->run($options);
+$class = "\\ntentan\\dev\\commands\\" . ucfirst($options['__command']);
+$container->resolve($class)->run($options);
