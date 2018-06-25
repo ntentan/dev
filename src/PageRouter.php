@@ -13,7 +13,7 @@ new class {
         $this->config = json_decode(file_get_contents('~ntentan.dev.config.json'), true);
         $requestUri = filter_input(INPUT_SERVER, 'REQUEST_URI');
         $requestFile = explode('?', $requestUri)[0];
-        if(!(is_file(getcwd() . $requestFile) || $requestFile == '/favicon.ico' )) {
+        if(!(file_exists(getcwd() . $requestFile) || $requestFile == '/favicon.ico' )) {
             //set_exception_handler([$this, 'exceptionHandler']);
             error_log("Serving: $requestUri");
             if($this->rebuildAssets()){
