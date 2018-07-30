@@ -19,13 +19,15 @@ $parser->addOption([
     'short_name' => 'p', 'name' => 'port', 'has_value' => true, 
     'help' => 'Server port value (defaults to 8080)',
     'default' => '8080',
-    'command' => 'serve'
+    'command' => 'serve',
+    'type' => 'string'
 ]);
 $parser->addOption([
     'short_name' => 'h', 'name' => 'host', 'has_value' => true, 
     'help' => 'Host to be bound to (defaults to 127.0.0.1)',
     'default' => '127.0.0.1',
-    'command' => 'serve'
+    'command' => 'serve',
+    'type' => 'string'
 ]);
 $parser->addOption([
     'short_name' => 'b', 'name' => 'insert-breakpoints',
@@ -38,13 +40,15 @@ $parser->addOption([
     'short_name' => 'p', 'name' => 'public-dir', 'has_value' => true,
     'help' => 'Location of public directory',
     'default' => 'public',
-    'command' => 'build'
+    'command' => 'build',
+    'type' => 'string'
 ]);
 $parser->addOption([
     'short_name' => 'a', 'name' => 'asset-pipeline', 'has_value' => true,
     'help' => 'Location of the asset pipeline file',
     'default' => 'asset_pipeline.php',
-    'command' => 'build'
+    'command' => 'build',
+    'type' => 'string'
 ]);
 
 $parser->enableHelp('Ntentan PHP Framework Dev Tool');
