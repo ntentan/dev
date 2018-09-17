@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90b965edb91f04de3fa364391aaa6a68",
+    "content-hash": "dcec6bbfcb46353dec25e52fe6de3a7a",
     "packages": [
         {
             "name": "ekowabaka/clearice",
-            "version": "dev-dev",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ekowabaka/clearice.git",
-                "reference": "79d7ba6c31be384858cdd1a42d7891a5178e67a1"
+                "reference": "47edb605e840187c77e14eb8066d80a00ed3b7d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ekowabaka/clearice/zipball/79d7ba6c31be384858cdd1a42d7891a5178e67a1",
-                "reference": "79d7ba6c31be384858cdd1a42d7891a5178e67a1",
+                "url": "https://api.github.com/repos/ekowabaka/clearice/zipball/47edb605e840187c77e14eb8066d80a00ed3b7d1",
+                "reference": "47edb605e840187c77e14eb8066d80a00ed3b7d1",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +46,7 @@
                 }
             ],
             "description": "A tool to help in the building of CLI apps. Provides command line parsing and simple console I/O interfaces.",
-            "time": "2018-06-20T23:37:31+00:00"
+            "time": "2018-08-05T04:23:40+00:00"
         },
         {
             "name": "mustache/mustache",
@@ -96,16 +96,16 @@
         },
         {
             "name": "ntentan/panie",
-            "version": "dev-dev",
+            "version": "v0.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ntentan/panie.git",
-                "reference": "e3e08d727eeabcc288bc0579e11a7d300f053d9f"
+                "reference": "c9340e3723224e6e34de60101b090ffcf1c3caf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ntentan/panie/zipball/e3e08d727eeabcc288bc0579e11a7d300f053d9f",
-                "reference": "e3e08d727eeabcc288bc0579e11a7d300f053d9f",
+                "url": "https://api.github.com/repos/ntentan/panie/zipball/c9340e3723224e6e34de60101b090ffcf1c3caf6",
+                "reference": "c9340e3723224e6e34de60101b090ffcf1c3caf6",
                 "shasum": ""
             },
             "require": {
@@ -133,7 +133,7 @@
                 }
             ],
             "description": "A thin DI container for NtentanFX",
-            "time": "2017-12-23T16:23:18+00:00"
+            "time": "2018-09-16T13:02:43+00:00"
         },
         {
             "name": "psr/container",
@@ -189,9 +189,9 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "ekowabaka/clearice": 20,
+        "ekowabaka/clearice": 0,
         "mustache/mustache": 0,
-        "ntentan/panie": 20
+        "ntentan/panie": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,

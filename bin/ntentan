@@ -9,7 +9,6 @@ use ntentan\dev\commands\Build;
 use ntentan\dev\commands\Serve;
 use ntentan\panie\Container;
 
-
 $parser = new ArgumentParser();
 
 $parser->addCommand(['name' => 'serve', 'help' => 'Start the internal php server']);
