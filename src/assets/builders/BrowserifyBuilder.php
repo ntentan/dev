@@ -22,6 +22,6 @@ class BrowserifyBuilder extends AssetBuilder
 
     public function build()
     {
-        passthru("browserify {$this->entry} -d -o {$this->getOutputFile()}");
+        passthru("browserify {$this->entry} -d > {$this->getOutputFile()}");
     }
 }
