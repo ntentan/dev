@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-require 'vendor/autoload.php';
+require __DIR__ . '/../../../autoload.php';
 
 use clearice\argparser\ArgumentParser;
 use ntentan\dev\commands\Init;
@@ -48,6 +48,13 @@ $parser->addOption([
     'default' => 'asset_pipeline.php',
     'command' => 'build',
     'type' => 'string'
+]);
+
+$parser->addOption([
+    'short_name' => 'f', 'name' => 'force',
+    'help' => 'Rebuild all assets even if unmodified',
+    'default' => false,
+    'command' => 'build',
 ]);
 
 $parser->enableHelp('Ntentan PHP Framework Dev Tool');
