@@ -10,9 +10,10 @@ namespace ntentan\dev\assets;
 abstract class AssetBuilder
 {
 
-    protected $inputs;
-    protected $isTemp = true;
+    private $inputs;
+    private $isTemp = true;
     private $output;
+    private $options;
 
     public function __construct()
     {
@@ -37,6 +38,11 @@ abstract class AssetBuilder
         $this->inputs = $inputs;
     }
 
+    public function getInputs()
+    {
+        return $this->inputs;
+    }
+
     public function setOutput($output)
     {
         $this->output = $output;
@@ -47,7 +53,8 @@ abstract class AssetBuilder
     protected function expandInputs()
     {
         $files = [];
-        foreach ($this->inputs as $input) {
+        $inputs = $this->getInputs();
+        foreach ($inputs as $input) {
             $resolvedFiles = array_map(function($path){return realpath($path);}, glob($input));
             if(count($resolvedFiles)) {
                 $files = array_merge($files, $resolvedFiles);
@@ -76,7 +83,8 @@ abstract class AssetBuilder
             return true;
         }
         $outputModificationTime = filemtime($outputFile);
-        foreach ($this->inputs as $input) {
+        $inputs = $this->getInputs();
+        foreach ($inputs as $input) {
             $files = glob($input);
             foreach ($files as $file) {
                 if (is_a($input, self::class)) {
@@ -124,6 +132,16 @@ abstract class AssetBuilder
     public function setAssetsDirectory($assetsDirectory)
     {
         $this->assetsDirectory = $assetsDirectory;
+    }
+
+    public function setOptions($options)
+    {
+        $this->options = $options;
+    }
+
+    public function getOptions($options)
+    {
+        return $this->options;
     }
 
     abstract public function build();

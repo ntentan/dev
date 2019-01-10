@@ -15,8 +15,8 @@ class Build
 
     public function run($options)
     {
-        if (file_exists('asset_pipeline.php')) {
-            $this->assetPipeline->setup($options['public-dir']);
+        if (file_exists($options['asset-pipeline'])) {
+            $this->assetPipeline->setup($options);
             require $options['asset-pipeline'];
         }
     }
