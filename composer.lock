@@ -1,23 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dcec6bbfcb46353dec25e52fe6de3a7a",
+    "content-hash": "93c5984e4789f8fd66e7131d8af6b602",
     "packages": [
         {
             "name": "ekowabaka/clearice",
-            "version": "v3.0.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ekowabaka/clearice.git",
-                "reference": "55fe6b7b527f3881e362c15e6c9b8d04328ca694"
+                "reference": "8762c8a75e62df5c1a5505f2c78d6809ab5b3658"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ekowabaka/clearice/zipball/55fe6b7b527f3881e362c15e6c9b8d04328ca694",
-                "reference": "55fe6b7b527f3881e362c15e6c9b8d04328ca694",
+                "url": "https://api.github.com/repos/ekowabaka/clearice/zipball/8762c8a75e62df5c1a5505f2c78d6809ab5b3658",
+                "reference": "8762c8a75e62df5c1a5505f2c78d6809ab5b3658",
                 "shasum": ""
             },
             "require": {
@@ -46,20 +46,20 @@
                 }
             ],
             "description": "A tool to help in the building of CLI apps. Provides command line parsing and simple console I/O interfaces.",
-            "time": "2018-10-14T12:43:59+00:00"
+            "time": "2019-03-24T13:49:18+00:00"
         },
         {
             "name": "mustache/mustache",
-            "version": "v2.12.0",
+            "version": "v2.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/mustache.php.git",
-                "reference": "fe8fe72e9d580591854de404cc59a1b83ca4d19e"
+                "reference": "e95c5a008c23d3151d59ea72484d4f72049ab7f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/fe8fe72e9d580591854de404cc59a1b83ca4d19e",
-                "reference": "fe8fe72e9d580591854de404cc59a1b83ca4d19e",
+                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/e95c5a008c23d3151d59ea72484d4f72049ab7f4",
+                "reference": "e95c5a008c23d3151d59ea72484d4f72049ab7f4",
                 "shasum": ""
             },
             "require": {
@@ -92,7 +92,56 @@
                 "mustache",
                 "templating"
             ],
-            "time": "2017-07-11T12:54:05+00:00"
+            "time": "2019-11-23T21:40:31+00:00"
+        },
+        {
+            "name": "ntentan/honam",
+            "version": "v0.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ntentan/honam.git",
+                "reference": "25448e290effffb0a9aa83857acfccb8dfc6c7d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ntentan/honam/zipball/25448e290effffb0a9aa83857acfccb8dfc6c7d3",
+                "reference": "25448e290effffb0a9aa83857acfccb8dfc6c7d3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-simplexml": "*",
+                "ntentan/utils": "~0.9.0"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "@stable",
+                "mustache/mustache": "@stable",
+                "phpunit/phpunit": "@stable",
+                "smarty/smarty": "@stable"
+            },
+            "suggest": {
+                "mustache/mustache": "For mustache template support (2.*)",
+                "smarty/smarty": "For smarty template support (3.*)"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ntentan\\honam\\": "src/",
+                    "ntentan\\honam\\tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ekow Abaka Ainooson",
+                    "email": "jainooson@gmail.com"
+                }
+            ],
+            "description": "The views component of the ntentan framework.",
+            "time": "2020-02-06T15:49:02+00:00"
         },
         {
             "name": "ntentan/panie",
@@ -134,6 +183,45 @@
             ],
             "description": "A thin DI container for NtentanFX",
             "time": "2018-12-03T02:49:40+00:00"
+        },
+        {
+            "name": "ntentan/utils",
+            "version": "v0.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ntentan/utils.git",
+                "reference": "ecf00ff7cc956ab91b659dc289fed8c3a016fa40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ntentan/utils/zipball/ecf00ff7cc956ab91b659dc289fed8c3a016fa40",
+                "reference": "ecf00ff7cc956ab91b659dc289fed8c3a016fa40",
+                "shasum": ""
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "@stable",
+                "php-mock/php-mock-phpunit": "^2",
+                "phpunit/phpunit": "@stable"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ntentan\\utils\\": "src/",
+                    "ntentan\\utils\\tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ekow Abaka Ainooson",
+                    "email": "jainooson@gmail.com"
+                }
+            ],
+            "description": "Common utility functions shared accross the ntentan framework.",
+            "time": "2019-11-17T15:12:48+00:00"
         },
         {
             "name": "psr/container",
@@ -191,7 +279,8 @@
     "stability-flags": {
         "ekowabaka/clearice": 0,
         "mustache/mustache": 0,
-        "ntentan/panie": 0
+        "ntentan/panie": 0,
+        "ntentan/honam": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,

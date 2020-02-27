@@ -4,25 +4,24 @@
 require __DIR__ . '/../../../autoload.php';
 
 use clearice\argparser\ArgumentParser;
-use ntentan\dev\commands\Init;
-use ntentan\dev\commands\Build;
-use ntentan\dev\commands\Serve;
+use ntentan\honam\Templates;
 use ntentan\panie\Container;
 
 $parser = new ArgumentParser();
 
 $parser->addCommand(['name' => 'serve', 'help' => 'Start the internal php server']);
 $parser->addCommand(['name' => 'build', 'help' => 'Run builds scripts to build assets and resources']);
+$parser->addCommand(['name' => 'init', 'help' => 'Initialize the application']);
 
 $parser->addOption([
-    'short_name' => 'p', 'name' => 'port', 'has_value' => true, 
+    'short_name' => 'p', 'name' => 'port', 'has_value' => true,
     'help' => 'Server port value (defaults to 8080)',
     'default' => '8080',
     'command' => 'serve',
     'type' => 'string'
 ]);
 $parser->addOption([
-    'short_name' => 'h', 'name' => 'host', 'has_value' => true, 
+    'short_name' => 'h', 'name' => 'host', 'has_value' => true,
     'help' => 'Host to be bound to (defaults to 127.0.0.1)',
     'default' => '127.0.0.1',
     'command' => 'serve',
@@ -57,6 +56,25 @@ $parser->addOption([
     'command' => 'build',
 ]);
 
+// Options for init command
+$parser->addOption([
+    'short_name' => 'n', 'name' => 'name',
+    'help' => 'Provide the name of the application',
+    'command' => 'init'
+]);
+
+$parser->addOption([
+    'short_name' => 's', 'name' => 'namespace',
+    'help' => 'Provide the namespace of the application\'s classes',
+    'command' => 'init'
+]);
+
+$parser->addOption([
+    'name' => 'no-prompts',
+    'help' => 'Disable all interactive prompts',
+    'command' => 'init'
+]);
+
 $parser->enableHelp('Ntentan PHP Framework Dev Tool');
 $options = $parser->parse();
 
@@ -66,5 +84,12 @@ if(!isset($options['__command'])) {
 }
 
 $container = new Container();
+$container->setup([
+    Templates::class => [
+        function() {
+            return new Templates();
+        }
+    ]
+]);
 $class = "\\ntentan\\dev\\commands\\" . ucfirst($options['__command']);
 $container->resolve($class)->run($options);

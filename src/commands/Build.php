@@ -20,5 +20,4 @@ class Build
             require $options['asset-pipeline'];
         }
     }
-
 }

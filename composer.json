@@ -16,7 +16,8 @@
     "require": {
         "ekowabaka/clearice" : "@stable",
         "mustache/mustache": "@stable",
-        "ntentan/panie": "@stable"
+        "ntentan/panie": "@stable",
+        "ntentan/honam": "@stable"
     },
     "bin" : ["bin/ntentan"]
 }
