@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93c5984e4789f8fd66e7131d8af6b602",
+    "content-hash": "27fc390195fed85e4cae1288685d81fa",
     "packages": [
         {
             "name": "ekowabaka/clearice",
@@ -284,6 +284,9 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-pcntl": "*",
+        "ext-json": "*"
+    },
     "platform-dev": []
 }
