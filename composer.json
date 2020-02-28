@@ -17,7 +17,8 @@
         "ekowabaka/clearice" : "@stable",
         "mustache/mustache": "@stable",
         "ntentan/panie": "@stable",
-        "ntentan/honam": "@stable"
+        "ntentan/honam": "@stable",
+        "ext-pcntl": "*"
     },
     "bin" : ["bin/ntentan"]
 }

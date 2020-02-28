@@ -11,9 +11,15 @@ new class {
     
     public function __construct() 
     {
-        $this->config = json_decode(file_get_contents('~ntentan.dev.config.json'), true);
+        $this->config = json_decode(file_get_contents('.ntentan-dev.json'), true);
         $requestUri = filter_input(INPUT_SERVER, 'REQUEST_URI');
         $requestFile = explode('?', $requestUri)[0];
+
+        if($requestUri == '/' && !file_exists('index.php')) {
+            require __DIR__ . "/../installer/setup.php";
+            die();
+        }
+
         if(!(file_exists(getcwd() . $requestFile) || $requestFile == '/favicon.ico' )) {
             //set_exception_handler([$this, 'exceptionHandler']);
             error_log("Serving: $requestUri");

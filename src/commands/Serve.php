@@ -10,7 +10,7 @@ class Serve
         pcntl_signal(SIGINT, [$this, 'shutdown']);
         $spec = [STDOUT, STDIN, STDERR];
         $pipes = [];;
-        file_put_contents('~ntentan.dev.config.json', json_encode($options));
+        file_put_contents('.ntentan-dev.json', json_encode($options));
         $process = proc_open(
             PHP_BINARY . " -d cli_server.color=1 -S {$options['host']}:{$options['port']} " . __DIR__ . "/../../src/PageRouter.php", 
             $spec, $pipes
@@ -24,7 +24,7 @@ class Serve
     private function shutdown()
     {
         print "\nShutting down ... ";
-        unlink('~ntentan.dev.config.json');
+        unlink('.ntentan-dev.json');
         print "OK\n";
     }
 }
