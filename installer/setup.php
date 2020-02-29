@@ -14,6 +14,7 @@ if(Input::exists(Input::POST, 'namespace')) {
    $initialize = new Initialize($templateEngine, new Io());
    $initialize->setOptions(['namespace' => Input::post('namespace'), 'name' => Input::post('name')]);
    $initialize->run();
+   header("Location: /");
 } else {
     echo $templateEngine->render("view", ['page' => 'welcome']);
 }

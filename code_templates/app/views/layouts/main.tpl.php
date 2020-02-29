@@ -22,7 +22,7 @@
         id="svg1168"
         version="1.1"
         viewBox="0 0 1042 210"
-        style="width: 30%; min-width: 100px">
+        style="width: 300px">
         <defs
             id="defs1162" />
         <metadata
