@@ -15,7 +15,7 @@ p{
     margin-bottom: 50px;
 }
 
-form label, form input, form span {
+form label, form input[type=text], form span {
     display: block;
     margin-bottom: 5px;
 }
@@ -43,7 +43,7 @@ form div {
     margin-bottom: 40px;
 }
 
-button {
+input[type=submit] {
     border: none;
     background-color: #4e9bec;
     color: white;
