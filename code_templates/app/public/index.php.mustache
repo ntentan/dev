@@ -13,9 +13,9 @@ $loader->addPsr4("$namespace\\", __DIR__ . '/../src');
 /**
  * Get an instance of the DI container
  */
-$container = (new ContainerBuilder())->getContainer();
+$container = (new ContainerBuilder($namespace))->getContainer();
 
 /**
  * Execute the application
  */
-$container->resolve(Application::class, ['namespace' => $namespace])->execute();
+$container->get(Application::class)->execute();

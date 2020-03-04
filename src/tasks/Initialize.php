@@ -37,6 +37,7 @@ class Initialize
         $name = $this->options['name'] ?? addslashes('An ntentan application');
         $this->io->output("Copying skeleton application\n");
         Filesystem::get("$this->homeDirectory/code_templates/app/views")->copyTo("./views");
+        Filesystem::directory("views/shared")->create();
         Filesystem::get("$this->homeDirectory/code_templates/app/bootstrap")->copyTo("./bootstrap");
         $this->io->output("Creating public directory\n");
         Filesystem::directory("public")->create();
@@ -47,9 +48,6 @@ class Initialize
         $this->writeTemplateFile('public/index.php', $data);
         $this->writeTemplateFile('config/app.conf.php', $data);
         $this->writeTemplateFile('src/controllers/HomeController.php', $data);
-//        file_put_contents("public/index.php", $this->templates->render("$this->homeDirectory/code_templates/app/public/index.php.mustache", ['namespace' => $namespace]));
-//        file_put_contents("config/app.conf.php", $this->templates->render("$this->homeDirectory/code_templates/app/config/app.conf.php.mustache", ['name' => $name]));
-//        file_put_contents("src/controllers/HomeController.php", $this->templates->render("$this->homeDirectory/code_templates/app/src", ['name' => $name]));
         Filesystem::get("$this->homeDirectory/code_templates/app/index_php")->copyTo("index.php");
     }
 }

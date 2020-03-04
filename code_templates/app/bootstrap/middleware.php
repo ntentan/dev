@@ -1,3 +1,7 @@
 <?php
 
-return [];
+use ntentan\middleware\MvcMiddlewareFactory;
+
+return [
+    [MvcMiddlewareFactory::class, 'mvc']
+];
