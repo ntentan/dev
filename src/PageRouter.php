@@ -20,14 +20,15 @@ new class {
             die();
         }
 
-        if(!(file_exists($this->config['docroot'] . '/' . $requestFile) || $requestFile == '/favicon.ico' )) {
+
+        if(!is_file($this->config['docroot'] . '/' . $requestFile)) {
             //set_exception_handler([$this, 'exceptionHandler']);
             error_log("Serving: $requestUri");
             if($this->rebuildAssets()){
                 AssetPipeline::setup(['public-dir' => 'public', 'asset-pipeline' => 'bootstrap/assets.php']);
                 require 'bootstrap/assets.php';
             }
-            require 'index.php';
+            require 'public/index.php';
             die();
         }
     }
