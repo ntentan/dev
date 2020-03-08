@@ -1,6 +1,7 @@
 <?php
 
-require 'vendor/autoload.php';
+// Must always run in the vendor directory
+require __DIR__ . '/../../../autoload.php';
 
 use ntentan\honam\TemplateEngine;
 use ntentan\dev\assets\AssetPipeline;
@@ -11,7 +12,7 @@ new class {
     
     public function __construct() 
     {
-        $this->config = json_decode(file_get_contents('.ntentan-dev.json'), true);
+        $this->config = json_decode(file_get_contents('../.ntentan-dev.json'), true);
         $requestUri = filter_input(INPUT_SERVER, 'REQUEST_URI');
         $requestFile = explode('?', $requestUri)[0];
 
@@ -25,17 +26,17 @@ new class {
             //set_exception_handler([$this, 'exceptionHandler']);
             error_log("Serving: $requestUri");
             if($this->rebuildAssets()){
-                AssetPipeline::setup(['public-dir' => 'public', 'asset-pipeline' => 'bootstrap/assets.php']);
-                require 'bootstrap/assets.php';
+                AssetPipeline::setup(['public-dir' => 'public', 'asset-pipeline' => __DIR__ . '/../../../../bootstrap/assets.php']);
+                require __DIR__ . '/../../../../bootstrap/assets.php';
             }
-            require 'public/index.php';
+            require __DIR__ . '/../../../../public/index.php';
             die();
         }
     }
 
     private function rebuildAssets() {
         $client = strtolower(filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH'));
-        return file_exists('bootstrap/assets.php')
+        return file_exists(__DIR__ . '/../../../../bootstrap/assets.php')
             && !isset($this->config['disable-asset-builder'])
             && $client != 'xmlhttprequest';
     }

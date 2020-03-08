@@ -13,6 +13,7 @@ class Serve
         $pipes = [];
         $options['docroot'] = $docroot;
         file_put_contents('.ntentan-dev.json', json_encode($options));
+        chdir("public");
         $process = proc_open(
             PHP_BINARY . " -d cli_server.color=1 -t {$docroot} -S {$options['host']}:{$options['port']} " . __DIR__ . "/../../src/PageRouter.php",
             $spec, $pipes
