@@ -27,7 +27,7 @@ class Serve
     private function shutdown()
     {
         print "\nShutting down ... ";
-        unlink('.ntentan-dev.json');
+        unlink('../.ntentan-dev.json');
         print "OK\n";
     }
 }

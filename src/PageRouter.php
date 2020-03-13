@@ -26,8 +26,13 @@ new class {
             //set_exception_handler([$this, 'exceptionHandler']);
             error_log("Serving: $requestUri");
             if($this->rebuildAssets()){
+                // Build assets from the project home directory
+                chdir("..");
                 AssetPipeline::setup(['public-dir' => 'public', 'asset-pipeline' => __DIR__ . '/../../../../bootstrap/assets.php']);
                 require __DIR__ . '/../../../../bootstrap/assets.php';
+
+                // Return to the public directory
+                chdir("public");
             }
             require __DIR__ . '/../../../../public/index.php';
             die();
