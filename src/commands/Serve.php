@@ -22,6 +22,7 @@ class Serve
             usleep(500);
         }
         $this->shutdown();
+        return 0;
     }    
     
     private function shutdown()

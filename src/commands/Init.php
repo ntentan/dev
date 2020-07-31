@@ -19,6 +19,6 @@ class Init
 
     public function run($options)
     {
-
+        return 0;
     }
 }

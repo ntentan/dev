@@ -92,4 +92,5 @@ $container->setup([
     ]
 ]);
 $class = "\\ntentan\\dev\\commands\\" . ucfirst($options['__command']);
-$container->resolve($class)->run($options);
+
+exit($container->resolve($class)->run($options));

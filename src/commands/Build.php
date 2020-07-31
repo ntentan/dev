@@ -21,8 +21,10 @@ class Build
         if (file_exists($options['asset-pipeline'])) {
             $this->assetPipeline->setup($options);
             require $options['asset-pipeline'];
+            return 0;
         } else {
             $this->io->error("Cannot find asset pipeline {$options['asset-pipeline']}\n");
+            return 10;
         }
     }
 }
