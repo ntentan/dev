@@ -14,14 +14,14 @@ $parser->addCommand(['name' => 'build', 'help' => 'Run builds scripts to build a
 $parser->addCommand(['name' => 'init', 'help' => 'Initialize the application']);
 
 $parser->addOption([
-    'short_name' => 'p', 'name' => 'port', 'has_value' => true,
+    'short_name' => 'p', 'name' => 'port',
     'help' => 'Server port value (defaults to 8080)',
     'default' => '8080',
     'command' => 'serve',
     'type' => 'string'
 ]);
 $parser->addOption([
-    'short_name' => 'h', 'name' => 'host', 'has_value' => true,
+    'short_name' => 'h', 'name' => 'host',
     'help' => 'Host to be bound to (defaults to 127.0.0.1)',
     'default' => '127.0.0.1',
     'command' => 'serve',
@@ -35,14 +35,14 @@ $parser->addOption([
 
 // Options for build command
 $parser->addOption([
-    'short_name' => 'p', 'name' => 'public-dir', 'has_value' => true,
+    'short_name' => 'p', 'name' => 'public-dir',
     'help' => 'Location of public directory',
     'default' => 'public',
     'command' => 'build',
     'type' => 'string'
 ]);
 $parser->addOption([
-    'short_name' => 'a', 'name' => 'asset-pipeline', 'has_value' => true,
+    'short_name' => 'a', 'name' => 'asset-pipeline',
     'help' => 'Location of the asset pipeline file',
     'default' => 'bootstrap/assets.php',
     'command' => 'build',
