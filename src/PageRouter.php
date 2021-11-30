@@ -3,7 +3,6 @@
 // Must always run in the vendor directory
 require __DIR__ . '/../../../autoload.php';
 
-use ntentan\honam\TemplateEngine;
 use ntentan\dev\assets\AssetPipeline;
 
 new class {
@@ -12,7 +11,12 @@ new class {
     
     public function __construct() 
     {
-        $this->config = json_decode(file_get_contents('../.ntentan-dev.json'), true);
+        if(file_exists('../.ntentan-dev.json')) {
+            $this->config = json_decode(file_get_contents('../.ntentan-dev.json'), true);
+        } else {
+            $this->config = json_decode(file_get_contents('.ntentan-dev.json'), true);
+        }
+
         $requestUri = filter_input(INPUT_SERVER, 'REQUEST_URI');
         $requestFile = explode('?', $requestUri)[0];
 
@@ -23,7 +27,6 @@ new class {
 
 
         if(!is_file($this->config['docroot'] . '/' . $requestFile)) {
-            //set_exception_handler([$this, 'exceptionHandler']);
             error_log("Serving: $requestUri");
             if($this->rebuildAssets()){
                 // Build assets from the project home directory

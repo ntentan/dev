@@ -2,18 +2,25 @@
 
 namespace ntentan\dev\commands;
 
+/**
+ * A command that runs PHP's internal web server around ntentan.
+ */
 class Serve
 {    
     public function run($options)
     {
         declare(ticks = 1)
         pcntl_signal(SIGINT, [$this, 'shutdown']);
-        $spec = [STDOUT, STDIN, STDERR];
+
+        // Resolve the document root
         $docroot = realpath(__DIR__ . "/../../../../../public");
-        $pipes = [];
+        $docroot = $docroot === false ? '.' : $docroot;
         $options['docroot'] = $docroot;
         file_put_contents('.ntentan-dev.json', json_encode($options));
-        chdir("public");
+
+        // Setup and start the server process
+        $spec = [STDOUT, STDIN, STDERR];
+        $pipes = [];
         $process = proc_open(
             PHP_BINARY . " -d cli_server.color=1 -t {$docroot} -S {$options['host']}:{$options['port']} " . __DIR__ . "/../../src/PageRouter.php",
             $spec, $pipes
@@ -28,7 +35,9 @@ class Serve
     private function shutdown()
     {
         print "\nShutting down ... ";
-        unlink('../.ntentan-dev.json');
+        if(file_exists('.ntentan-dev.json')) {
+            unlink('.ntentan-dev.json');
+        }
         print "OK\n";
     }
 }
