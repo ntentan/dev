@@ -18,7 +18,7 @@
         "mustache/mustache": "@stable",
         "ntentan/panie": "@stable",
         "ntentan/honam": "@stable",
-        "ext-pcntl": "*",
+        "scssphp/scssphp": "~1.8",
         "ext-json": "*"
     },
     "bin" : ["bin/ntentan"]

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27fc390195fed85e4cae1288685d81fa",
+    "content-hash": "18090d49a4f5bf6aeab0e53b5859c251",
     "packages": [
         {
             "name": "ekowabaka/clearice",
-            "version": "v3.0.2",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ekowabaka/clearice.git",
-                "reference": "8762c8a75e62df5c1a5505f2c78d6809ab5b3658"
+                "reference": "ec521982b26ca4ca2e4823a6f8587ee49c06060b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ekowabaka/clearice/zipball/8762c8a75e62df5c1a5505f2c78d6809ab5b3658",
-                "reference": "8762c8a75e62df5c1a5505f2c78d6809ab5b3658",
+                "url": "https://api.github.com/repos/ekowabaka/clearice/zipball/ec521982b26ca4ca2e4823a6f8587ee49c06060b",
+                "reference": "ec521982b26ca4ca2e4823a6f8587ee49c06060b",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +46,11 @@
                 }
             ],
             "description": "A tool to help in the building of CLI apps. Provides command line parsing and simple console I/O interfaces.",
-            "time": "2019-03-24T13:49:18+00:00"
+            "support": {
+                "issues": "https://github.com/ekowabaka/clearice/issues",
+                "source": "https://github.com/ekowabaka/clearice/tree/v3.2.0"
+            },
+            "time": "2021-02-01T17:48:15+00:00"
         },
         {
             "name": "mustache/mustache",
@@ -92,32 +96,36 @@
                 "mustache",
                 "templating"
             ],
+            "support": {
+                "issues": "https://github.com/bobthecow/mustache.php/issues",
+                "source": "https://github.com/bobthecow/mustache.php/tree/master"
+            },
             "time": "2019-11-23T21:40:31+00:00"
         },
         {
             "name": "ntentan/honam",
-            "version": "v0.6.3",
+            "version": "v0.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ntentan/honam.git",
-                "reference": "25448e290effffb0a9aa83857acfccb8dfc6c7d3"
+                "reference": "ba8583a90a4121828b707a96b7e3f68fc9b9758f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ntentan/honam/zipball/25448e290effffb0a9aa83857acfccb8dfc6c7d3",
-                "reference": "25448e290effffb0a9aa83857acfccb8dfc6c7d3",
+                "url": "https://api.github.com/repos/ntentan/honam/zipball/ba8583a90a4121828b707a96b7e3f68fc9b9758f",
+                "reference": "ba8583a90a4121828b707a96b7e3f68fc9b9758f",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "ext-simplexml": "*",
-                "ntentan/utils": "~0.9.0"
+                "ntentan/utils": "0.*"
             },
             "require-dev": {
                 "mikey179/vfsstream": "@stable",
                 "mustache/mustache": "@stable",
                 "phpunit/phpunit": "@stable",
-                "smarty/smarty": "@stable"
+                "smarty/smarty": "~3.1"
             },
             "suggest": {
                 "mustache/mustache": "For mustache template support (2.*)",
@@ -141,7 +149,11 @@
                 }
             ],
             "description": "The views component of the ntentan framework.",
-            "time": "2020-02-06T15:49:02+00:00"
+            "support": {
+                "issues": "https://github.com/ntentan/honam/issues",
+                "source": "https://github.com/ntentan/honam/tree/v0.6.5"
+            },
+            "time": "2021-11-30T05:28:08+00:00"
         },
         {
             "name": "ntentan/panie",
@@ -182,20 +194,24 @@
                 }
             ],
             "description": "A thin DI container for NtentanFX",
+            "support": {
+                "issues": "https://github.com/ntentan/panie/issues",
+                "source": "https://github.com/ntentan/panie/tree/master"
+            },
             "time": "2018-12-03T02:49:40+00:00"
         },
         {
             "name": "ntentan/utils",
-            "version": "v0.9.1",
+            "version": "v0.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ntentan/utils.git",
-                "reference": "ecf00ff7cc956ab91b659dc289fed8c3a016fa40"
+                "reference": "558cf2b333dff3d56bfa8b9a3a60cb2127fa299c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ntentan/utils/zipball/ecf00ff7cc956ab91b659dc289fed8c3a016fa40",
-                "reference": "ecf00ff7cc956ab91b659dc289fed8c3a016fa40",
+                "url": "https://api.github.com/repos/ntentan/utils/zipball/558cf2b333dff3d56bfa8b9a3a60cb2127fa299c",
+                "reference": "558cf2b333dff3d56bfa8b9a3a60cb2127fa299c",
                 "shasum": ""
             },
             "require-dev": {
@@ -221,31 +237,30 @@
                 }
             ],
             "description": "Common utility functions shared accross the ntentan framework.",
-            "time": "2019-11-17T15:12:48+00:00"
+            "support": {
+                "issues": "https://github.com/ntentan/utils/issues",
+                "source": "https://github.com/ntentan/utils/tree/v0.11.1"
+            },
+            "time": "2021-11-05T18:56:35+00:00"
         },
         {
             "name": "psr/container",
-            "version": "1.0.0",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/container.git",
-                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+                "reference": "513e0666f7216c7459170d56df27dfcefe1689ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
-                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/513e0666f7216c7459170d56df27dfcefe1689ea",
+                "reference": "513e0666f7216c7459170d56df27dfcefe1689ea",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=7.4.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Psr\\Container\\": "src/"
@@ -258,7 +273,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common Container Interface (PHP FIG PSR-11)",
@@ -270,7 +285,85 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2017-02-14T16:28:37+00:00"
+            "support": {
+                "issues": "https://github.com/php-fig/container/issues",
+                "source": "https://github.com/php-fig/container/tree/1.1.2"
+            },
+            "time": "2021-11-05T16:50:12+00:00"
+        },
+        {
+            "name": "scssphp/scssphp",
+            "version": "v1.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scssphp/scssphp.git",
+                "reference": "5e37759a63caf54392a4b709358a39ac7425a69f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/5e37759a63caf54392a4b709358a39ac7425a69f",
+                "reference": "5e37759a63caf54392a4b709358a39ac7425a69f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-json": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4",
+                "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.3 || ^9.4",
+                "sass/sass-spec": "*",
+                "squizlabs/php_codesniffer": "~3.5",
+                "symfony/phpunit-bridge": "^5.1",
+                "thoughtbot/bourbon": "^7.0",
+                "twbs/bootstrap": "~5.0",
+                "twbs/bootstrap4": "4.6.0",
+                "zurb/foundation": "~6.5"
+            },
+            "suggest": {
+                "ext-iconv": "Can be used as fallback when ext-mbstring is not available",
+                "ext-mbstring": "For best performance, mbstring should be installed as it is faster than ext-iconv"
+            },
+            "bin": [
+                "bin/pscss"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ScssPhp\\ScssPhp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthon Pang",
+                    "email": "apang@softwaredevelopment.ca",
+                    "homepage": "https://github.com/robocoder"
+                },
+                {
+                    "name": "Cédric Morin",
+                    "email": "cedric@yterium.com",
+                    "homepage": "https://github.com/Cerdic"
+                }
+            ],
+            "description": "scssphp is a compiler for SCSS written in PHP.",
+            "homepage": "http://scssphp.github.io/scssphp/",
+            "keywords": [
+                "css",
+                "less",
+                "sass",
+                "scss",
+                "stylesheet"
+            ],
+            "support": {
+                "issues": "https://github.com/scssphp/scssphp/issues",
+                "source": "https://github.com/scssphp/scssphp/tree/v1.8.1"
+            },
+            "time": "2021-09-18T21:20:53+00:00"
         }
     ],
     "packages-dev": [],
@@ -285,8 +378,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "ext-pcntl": "*",
         "ext-json": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }

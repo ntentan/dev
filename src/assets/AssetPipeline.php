@@ -5,7 +5,7 @@ namespace ntentan\dev\assets;
 use ntentan\panie\Container;
 
 /**
- * Compiles assets.
+ * Compiles public assets.
  */
 class AssetPipeline 
 {
