@@ -5,6 +5,9 @@ require __DIR__ . '/../../../autoload.php';
 
 use ntentan\dev\assets\AssetPipeline;
 
+/**
+ * An anonymous class that implements the page routing logic.
+ */
 new class {
     
     private $config;
@@ -13,7 +16,7 @@ new class {
     {
         if(file_exists('../.ntentan-dev.json')) {
             $this->config = json_decode(file_get_contents('../.ntentan-dev.json'), true);
-        } else {
+        } else if (file_exists('.ntentan-dev.json')) {
             $this->config = json_decode(file_get_contents('.ntentan-dev.json'), true);
         }
 
@@ -26,11 +29,10 @@ new class {
         }
 
 
-        if(!is_file($this->config['docroot'] . '/' . $requestFile)) {
+        if(!is_file(($_SERVER["DOCUMENT_ROOT"] ?? ".") . '/' . $requestFile)) {
             error_log("Serving: $requestUri");
             if($this->rebuildAssets()){
                 // Build assets from the project home directory
-                chdir("..");
                 AssetPipeline::setup(['public-dir' => 'public', 'asset-pipeline' => __DIR__ . '/../../../../bootstrap/assets.php']);
                 require __DIR__ . '/../../../../bootstrap/assets.php';
 
