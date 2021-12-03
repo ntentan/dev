@@ -2,11 +2,12 @@
 namespace ntentan\dev\assets\builders;
 
 use ntentan\dev\assets\AssetBuilder;
+use ScssPhp\ScssPhp\Compiler;
 
 /**
  * Allows the compilation of Sass to CSS in the asset pipeline.
  * 
- * This builder uses a call to a sass compiler installed on the system. The
+ * The
  * builder uses only the first Sass file in the input. Other inputs are only
  * used to check for changes. In this regard, the first input file is expected
  * to import the other sass files internally. If this doesn't fit your workflow,
@@ -17,15 +18,21 @@ use ntentan\dev\assets\AssetBuilder;
  */
 class SassBuilder extends AssetBuilder
 {
+    private $sassCompiler;
+
+    public function __construct(Compiler $compiler)
+    {
+        parent::__construct();
+        $this->sassCompiler = $compiler;
+    }
+
     public function build() 
     {
         $code = "";
         foreach($this->expandInputs() as $input) {
+            $input = addslashes($input);
             $code .= "@import \"$input\";\n";
         }
-        $temp = "{$this->getOutputFile()}_temp.scss";
-        file_put_contents($temp, $code);
-        passthru("sassc -I . {$temp} {$this->getOutputFile()}");
-        unlink($temp);
+        file_put_contents($this->getOutputFile(), $this->sassCompiler->compileString($code)->getCss());
     }
 }
