@@ -10,7 +10,11 @@ class Serve
     public function run($options)
     {
         declare(ticks = 1)
-        pcntl_signal(SIGINT, [$this, 'shutdown']);
+
+        // This just prevents a clean shutdown on systems that have no PCNTL support
+        if(function_exists('pcntl_signal')) { 
+            pcntl_signal(SIGINT, [$this, 'shutdown']);
+        }
 
         // Resolve the document root
         $docroot = realpath(__DIR__ . "/../../../../../public");
