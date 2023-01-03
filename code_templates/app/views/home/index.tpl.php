@@ -79,5 +79,5 @@
 </svg>
 <div id="message">
     <h1>Congratulations!</h1>
-    <p>If you are seeing this, then ntentan was successfully installed on your system.</p>
+    <p>If you are seeing this, then ntentan was successfully installed for your application.</p>
 </div>
