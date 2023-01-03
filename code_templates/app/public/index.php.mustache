@@ -3,14 +3,14 @@
 use ntentan\Application;
 use ntentan\ContainerBuilder;
 
-define('APP_HOME', __DIR__ . '/..');
+define('APP_HOME', __DIR__ . '/../');
 
 /**
  * Setup our custom namespace and initialize the autoloader to it
  */
 $namespace = '{{namespace}}';
 $loader = require "vendor/autoload.php";
-$loader->addPsr4("$namespace\\", __DIR__ . '/../src');
+$loader->addPsr4("$namespace\\", __DIR__ . '/../src/');
 
 /**
  * Get an instance of the DI container
