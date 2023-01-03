@@ -43,23 +43,23 @@ abstract class AssetBuilder
         return $this->inputs;
     }
 
-    public function setOutput($output)
+    public function setOutput(string $output) : AssetBuilder
     {
         $this->output = $output;
         $this->isTemp = false;
         return $this;
     }
 
-    protected function expandInputs()
+    protected function expandInputs() : array
     {
         $files = [];
         $inputs = $this->getInputs();
         foreach ($inputs as $input) {
-            $resolvedFiles = array_map(function($path){return realpath($path);}, glob($input));
+            $resolvedFiles = array_map(fn($path) => realpath($path), glob($input));
             if(count($resolvedFiles)) {
                 $files = array_merge($files, $resolvedFiles);
             } else {
-                error_log("Failed to find [{$input}]");
+                error_log("Cannot find input file [{$input}]");
             }
         }
         return $files;

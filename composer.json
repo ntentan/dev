@@ -20,6 +20,7 @@
         "ntentan/honam": "@stable",
         "ntentan/ntentan": "@stable",
         "ext-pcntl": "*",
+        "scssphp/scssphp": "~1.8",
         "ext-json": "*"
     },
     "bin" : ["bin/ntentan"]

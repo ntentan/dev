@@ -13,6 +13,6 @@
         </style>
     </head>
     <body>
-        <?= $contents ?>
+        <?= $contents->u() ?>
     </body>
 </html>

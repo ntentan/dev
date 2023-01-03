@@ -5,6 +5,9 @@ namespace ntentan\dev\commands;
 use clearice\io\Io;
 use ntentan\dev\assets\AssetPipeline;
 
+/**
+ * Build
+ */
 class Build
 {
     private $assetPipeline;
@@ -19,7 +22,7 @@ class Build
     public function run($options)
     {
         if (file_exists($options['asset-pipeline'])) {
-            $this->assetPipeline->setup($options);
+            AssetPipeline::setup($options);
             require $options['asset-pipeline'];
             return 0;
         } else {
