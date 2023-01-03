@@ -18,6 +18,7 @@
         "mustache/mustache": "@stable",
         "ntentan/panie": "@stable",
         "ntentan/honam": "@stable",
+        "ntentan/ntentan": "@stable",
         "ext-pcntl": "*",
         "ext-json": "*"
     },
