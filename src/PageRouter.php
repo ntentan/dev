@@ -20,7 +20,7 @@ new class {
             $this->config = json_decode(file_get_contents('.ntentan-dev.json'), true);
         }
 
-        $requestUri = filter_input(INPUT_SERVER, 'REQUEST_URI');
+        $requestUri = filter_input(INPUT_SERVER, 'REQUEST_URI') ?? "";
         $requestFile = explode('?', $requestUri)[0];
 
         if($requestUri == '/' && !file_exists('index.php')) {
@@ -42,7 +42,7 @@ new class {
     }
 
     private function rebuildAssets() {
-        $client = strtolower(filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH'));
+        $client = strtolower(filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH') ?? "");
         return file_exists(__DIR__ . '/../../../../bootstrap/assets.php')
             && !isset($this->config['disable-asset-builder'])
             && $client != 'xmlhttprequest';
