@@ -20,14 +20,13 @@ new class {
             $this->config = json_decode(file_get_contents('.ntentan-dev.json'), true);
         }
 
-        $requestUri = filter_input(INPUT_SERVER, 'REQUEST_URI') ?? "";
+        $requestUri = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ?? "";
         $requestFile = explode('?', $requestUri)[0];
 
         if($requestUri == '/' && !file_exists('index.php')) {
             require __DIR__ . "/../installer/setup.php";
             die();
         }
-
 
         if(!is_file(($_SERVER["DOCUMENT_ROOT"] ?? ".") . '/' . $requestFile)) {
             error_log("Serving: $requestUri");
