@@ -35,9 +35,6 @@ new class {
                 // Build assets from the project home directory
                 AssetPipeline::setup(['public-dir' => 'public', 'asset-pipeline' => __DIR__ . '/../../../../bootstrap/assets.php']);
                 require __DIR__ . '/../../../../bootstrap/assets.php';
-
-                // Return to the public directory
-                chdir("public");
             }
             require __DIR__ . '/../../../../public/index.php';
             die();
