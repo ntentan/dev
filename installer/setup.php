@@ -13,8 +13,8 @@ $templateEngine->prependPath(__DIR__ . "/views");
 if(Input::exists(Input::POST, 'namespace')) {
    $initialize = new Initialize($templateEngine, new Io());
    $initialize->setOptions(['namespace' => Input::post('namespace'), 'name' => Input::post('name')]);
-   $initialize->run();
-   header("Location: /");
+   $response = $initialize->run();
+   echo $templateEngine->render("view", ["page" => "success", "page_data" => $response]);
 } else {
     echo $templateEngine->render("view", ['page' => 'welcome']);
 }

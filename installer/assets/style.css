@@ -57,3 +57,24 @@ input[type=submit] {
     text-align: center;
     margin-bottom: 50px;
 }
+
+ul#preflight-checklist {
+    margin: 0px;
+    padding-left: 20px;
+}
+
+ul#preflight-checklist li {
+    margin-bottom: 10px;
+    padding-left: 5px
+}
+ul#preflight-checklist li::marker {
+    margin-right: 10px
+}
+
+ul#preflight-checklist li.success::marker {
+    content: '👍🏽'
+}
+
+ul#preflight-checklist li.failure::marker {
+    content: '❗️'
+}
