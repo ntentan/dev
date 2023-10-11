@@ -13,6 +13,11 @@ $loader = require "vendor/autoload.php";
 $loader->addPsr4("$namespace\\", __DIR__ . '/../src/');
 
 /**
+ * Allow includes from the lower directly
+ */
+set_include_path(get_include_path() . PATH_SEPARATOR . "..");
+
+/**
  * Get an instance of the DI container
  */
 $container = (new ContainerBuilder($namespace))->getContainer();
