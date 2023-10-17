@@ -8,7 +8,7 @@ class Asset
         $builder = AssetPipeline::getContainer()->resolve("{$method}_builder");
         $builder->setInputs(is_array($arguments[0]) ? $arguments[0] : [$arguments[0]]);
         if(isset($arguments[1])) {
-            $builder->setOutput($arguments[1]);
+            $builder->setOutputFile($arguments[1]);
         }
         return $builder;
     }

@@ -10,15 +10,10 @@ namespace ntentan\dev\assets;
 abstract class AssetBuilder
 {
 
-    private $inputs;
-    private $isTemp = true;
-    private $output;
-    private $options;
-
-    public function __construct()
-    {
-        $this->output = rand(0, 10000000);
-    }
+    private array $inputs;
+    private bool $isTemp = true;
+    private string $outputFile;
+    private array $options;
 
     public function __destruct()
     {
@@ -33,19 +28,19 @@ abstract class AssetBuilder
      * 
      * @param array $inputs
      */
-    public function setInputs($inputs)
+    public function setInputs(array $inputs): void
     {
         $this->inputs = $inputs;
     }
 
-    public function getInputs()
+    public function getInputs(): array
     {
         return $this->inputs;
     }
 
-    public function setOutput(string $output) : AssetBuilder
+    public function setOutputFile(string $output) : AssetBuilder
     {
-        $this->output = $output;
+        $this->outputFile = $output;
         $this->isTemp = false;
         return $this;
     }
@@ -74,7 +69,7 @@ abstract class AssetBuilder
      * @param string $outputFile The output file against which inputs are compared for newness.
      * @return boolean
      */
-    public function hasChanges($outputFile = null)
+    public function hasChanges(?string $outputFile = null): bool
     {
 
         // Use the default output file of this builder if none was passed
@@ -103,19 +98,23 @@ abstract class AssetBuilder
         return false;
     }
 
-    public function setIsTemp($isTemp)
+    public function setIsTemp(bool $isTemp): void
     {
         $this->isTemp = $isTemp;
     }
 
-    public function getIsTemp()
+    public function getIsTemp(): bool
     {
         return $this->isTemp;
     }
 
-    public function getOutputFile()
+    public function getOutputFile(): ?string
     {
-        $file = AssetPipeline::getAssetsDirectory() . "/{$this->output}";
+        if (!isset($this->outputFile)) {
+            return null;
+        }
+        
+        $file = AssetPipeline::getAssetsDirectory() . "/{$this->outputFile}";
         $directory = dirname($file);
         if (!file_exists($directory)) {
             mkdir($directory, 0755, true);
@@ -123,26 +122,28 @@ abstract class AssetBuilder
         return $file;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         $this->build();
         return $this->getOutputFile();
     }
 
-    public function setAssetsDirectory($assetsDirectory)
+    public function setAssetsDirectory(string $assetsDirectory): void
     {
         $this->assetsDirectory = $assetsDirectory;
     }
 
-    public function setOptions($options)
+    public function setOptions(array $options): void
     {
         $this->options = $options;
     }
 
-    public function getOptions($options)
+    public function getOptions(): array
     {
         return $this->options;
     }
 
-    abstract public function build();
+    abstract public function build(): void;
+    
+    abstract public function getDescription(): string;
 }

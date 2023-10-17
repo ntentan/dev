@@ -35,7 +35,10 @@ new class {
                 AssetPipeline::setup(['public-dir' => 'public', 'asset-pipeline' => __DIR__ . '/../../../../bootstrap/assets.php']);
                 require __DIR__ . '/../../../../bootstrap/assets.php';
             }
-            require __DIR__ . '/../../../../public/index.php';
+            $indexFile = __DIR__ . '/../../../../public/index.php';
+            if (file_exists($indexFile)) {
+                require $indexFile;
+            }
             die();
         }
     }

@@ -22,11 +22,10 @@ class SassBuilder extends AssetBuilder
 
     public function __construct(Compiler $compiler)
     {
-        parent::__construct();
         $this->sassCompiler = $compiler;
     }
 
-    public function build() 
+    public function build(): void
     {
         $code = "";
         foreach($this->expandInputs() as $input) {
@@ -34,5 +33,9 @@ class SassBuilder extends AssetBuilder
             $code .= "@import \"$input\";\n";
         }
         file_put_contents($this->getOutputFile(), $this->sassCompiler->compileString($code)->getCss());
+    }
+
+    public function getDescription(): string {
+        return "SCSS";
     }
 }

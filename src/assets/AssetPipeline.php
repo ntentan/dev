@@ -45,6 +45,11 @@ class AssetPipeline
         
         foreach($builders as $builder) {
             $outputFile = $builder->getOutputFile();
+            if($outputFile == null) {
+                error_log("No output path specified for {$builder->getDescription()}");
+                continue;
+            }
+            
             $lastModified = file_exists($outputFile) ? filemtime($outputFile) : time();
             if($builder->hasChanges() || $lastModified < $pipelineLastModified || self::$forcedRebuild) {
                 $builder->build();
