@@ -36,6 +36,6 @@ class SassBuilder extends AssetBuilder
     }
 
     public function getDescription(): string {
-        return "SCSS";
+        return "scss";
     }
 }

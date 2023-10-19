@@ -145,5 +145,10 @@ abstract class AssetBuilder
 
     abstract public function build(): void;
     
+    /**
+     * A brief description of the builder to help developers identify problem 
+     * points when debugging. This can be anything from the name of the builder
+     * to the files being built.
+     */
     abstract public function getDescription(): string;
 }
