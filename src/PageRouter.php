@@ -28,7 +28,7 @@ new class {
             die();
         }
 
-        if(!is_file(($_SERVER["DOCUMENT_ROOT"] ?? ".") . '/' . $requestFile)) {
+        if(!is_file(($_SERVER["DOCUMENT_ROOT"] ?? ".") . '/' . urldecode($requestFile))) {
             error_log("Serving: $requestUri");
             if($this->rebuildAssets()){
                 // Build assets from the project home directory
