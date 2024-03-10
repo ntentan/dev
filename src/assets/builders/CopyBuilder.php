@@ -3,6 +3,7 @@
 namespace ntentan\dev\assets\builders;
 
 use ntentan\dev\assets\AssetBuilder;
+use ntentan\utils\Filesystem;
 
 /**
  * Copies asset files from the input to the output directory.
@@ -10,22 +11,27 @@ use ntentan\dev\assets\AssetBuilder;
  */
 class CopyBuilder extends AssetBuilder
 {
-    
-    public function build() 
+
+    public function build(): void
     {
-        $outputDirectory = $this->getOutputFile();
-        
-        if(!file_exists($outputDirectory)){
-            mkdir($outputDirectory);
+        $outputPath = $this->getOutputFile();
+
+        if ((str_ends_with($outputPath, "\\") || str_ends_with($outputPath, "/")) && !file_exists($outputPath)) {
+            Filesystem::directory($outputPath)->createIfNotExists();
+            $destination = $outputPath;
         } else {
-            touch($outputDirectory);
+            $destination = dirname($outputPath);
         }
         
         $files = $this->expandInputs();
-        
-        foreach($files as $file) {
-            copy($file, $outputDirectory . '/' . basename($file));
+
+        foreach ($files as $file) {
+            copy($file, $destination . DIRECTORY_SEPARATOR . basename($file));
         }
     }
 
+    public function getDescription(): string
+    {
+        return "copier";
+    }
 }

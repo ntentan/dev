@@ -4,8 +4,8 @@ namespace ntentan\dev\assets;
 
 /**
  * Base class for all asset builders.
- * This class provides methods that allow asset builders to receive inputs;
- * detect changes between built assets and sources; and write out built assets. 
+ * This class provides methods that allow asset builders to receive inputs,
+ * detect changes between built assets and sources, and write out built assets. 
  */
 abstract class AssetBuilder
 {
@@ -45,6 +45,11 @@ abstract class AssetBuilder
         return $this;
     }
 
+    /**
+     * Expand glob inputs that are passed through the asset pipeline.
+     * 
+     * @return array
+     */
     protected function expandInputs() : array
     {
         $files = [];
@@ -147,8 +152,9 @@ abstract class AssetBuilder
     
     /**
      * A brief description of the builder to help developers identify problem 
-     * points when debugging. This can be anything from the name of the builder
-     * to the files being built.
+     * points when debugging. The value returned by this method can be anything 
+     * helpful, from the name of the builder, to the files being built, or some
+     * internal state of the builder.
      */
     abstract public function getDescription(): string;
 }
