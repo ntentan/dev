@@ -23,6 +23,11 @@ abstract class AssetBuilder
         }
     }
 
+    public static function create(string $name) : AssetBuilder
+    {
+        $className = '\\ntentan\\dev\\assets\\builders\\' . Text::cameli$name;
+    }
+
     /**
      * Set the input paths to the assets used by this builder.
      * 
@@ -158,3 +163,4 @@ abstract class AssetBuilder
      */
     abstract public function getDescription(): string;
 }
+
