@@ -15,6 +15,18 @@ abstract class AssetBuilder
     private string $outputFile;
     private array $options;
 
+    private static array $registry;
+
+    public static function register($name, $factory): void
+    {
+        self::$registry[$name] = $factory;
+    }
+
+    public static function create($name) : AssetBuilder
+    {
+        return self::$registry[$name]();
+    }
+
     public function __destruct()
     {
         $outputFile = $this->getOutputFile();

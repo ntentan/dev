@@ -3,13 +3,6 @@ namespace ntentan\dev\assets;
 
 class Asset
 {
-    private static array $registry;
-
-    public static function register($name, $factory): void
-    {
-        self::$registry[$name] = $factory;
-    }
-
     public static function __callStatic($method, $arguments)
     {
         //$builder = AssetPipeline::getContainer()->resolve("{$method}_builder");
