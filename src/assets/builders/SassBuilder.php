@@ -14,20 +14,20 @@ class SassBuilder extends AssetBuilder
     public function __construct(Compiler $compiler)
     {
         $this->sassCompiler = $compiler;
-        // $this->sassCompiler->setImportPaths([
-        //     function ($path) {
-        //         if (Compiler::isCssImport($path)) {
-        //             return null;
-        //         }
+        $this->sassCompiler->setImportPaths([
+            function ($path) {
+                if (Compiler::isCssImport($path)) {
+                    return null;
+                }
 
-        //         $inputPath = realpath(dirname($this->getInputs()[0]));
-        //         error_log("$inputPath");
+                $inputPath = realpath(dirname($this->getInputs()[0]));
+                error_log("$inputPath");
 
-        //         if (file_exists($path)) {
-        //             return $this->getInputs();
-        //         }
-        //     }
-        // ]);
+                if (file_exists($path)) {
+                    return $this->getInputs();
+                }
+            }
+        ]);
     }
 
     // public function hasChanges() : bool
@@ -42,7 +42,7 @@ class SassBuilder extends AssetBuilder
     {
         $code = "";
         foreach($this->expandInputs() as $input) {
-            $code .= $this->sassCompiler->compile($input)->getCss();
+            $code .= $this->sassCompiler->compileString(file_get_contents($input))->getCss();
         }
         file_put_contents($this->getOutputFile(), $code);
     }
