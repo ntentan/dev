@@ -2,6 +2,8 @@
 
 namespace ntentan\dev\assets;
 
+use Exception;
+
 /**
  * Base class for all asset builders.
  * This class provides methods that allow asset builders to receive inputs,
@@ -24,6 +26,9 @@ abstract class AssetBuilder
 
     public static function create($name) : AssetBuilder
     {
+        if (!isset(self::$registry[$name])) {
+            throw new Exception("Unknown asset builder $name");
+        }
         return self::$registry[$name]();
     }
 
@@ -33,11 +38,6 @@ abstract class AssetBuilder
         if ($this->isTemp && file_exists($outputFile)) {
             unlink($this->getOutputFile());
         }
-    }
-
-    public static function create(string $name) : AssetBuilder
-    {
-        $className = '\\ntentan\\dev\\assets\\builders\\' . Text::cameli$name;
     }
 
     /**
@@ -148,11 +148,6 @@ abstract class AssetBuilder
     {
         $this->build();
         return $this->getOutputFile();
-    }
-
-    public function setAssetsDirectory(string $assetsDirectory): void
-    {
-        $this->assetsDirectory = $assetsDirectory;
     }
 
     public function setOptions(array $options): void

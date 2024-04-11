@@ -16,6 +16,7 @@ class AssetPipeline
     
     public static function setup($options)
     {
+        
 //        self::$container = new Container();
 //        self::$container->bind("js_builder")->to(builders\JsBuilder::class);
 //        self::$container->bind("css_builder")->to(builders\CssBuilder::class);

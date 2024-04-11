@@ -14,28 +14,29 @@ class SassBuilder extends AssetBuilder
     public function __construct(Compiler $compiler)
     {
         $this->sassCompiler = $compiler;
-        $this->sassCompiler->setImportPaths([
-            function ($path) {
-                if (Compiler::isCssImport($path)) {
-                    return null;
-                }
+        // $this->sassCompiler->setImportPaths([
+        //     function ($path) {
+        //         if (Compiler::isCssImport($path)) {
+        //             return null;
+        //         }
 
-                $inputPath = realpath(dirname($this->getInputs()));
+        //         $inputPath = realpath(dirname($this->getInputs()[0]));
+        //         error_log("$inputPath");
 
-                if (file_exists($path)) {
-                    return $this->getInputs()
-                }
-            }
-        ]);
+        //         if (file_exists($path)) {
+        //             return $this->getInputs();
+        //         }
+        //     }
+        // ]);
     }
 
-    public function hasChanges()
-    {
-        for () {
+    // public function hasChanges() : bool
+    // {
+    //     // for () {
 
-        }
-        return super::hasChanges();
-    }
+    //     // }
+    //     return parent::hasChanges();
+    // }
 
     public function build(): void
     {

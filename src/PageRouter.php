@@ -3,7 +3,11 @@
 // Must always run in the vendor directory
 require __DIR__ . '/../../../autoload.php';
 
+use ntentan\dev\assets\AssetBuilder;
 use ntentan\dev\assets\AssetPipeline;
+use ntentan\dev\assets\builders\CopyBuilder;
+use ntentan\dev\assets\builders\SassBuilder;
+use ScssPhp\ScssPhp\Compiler;
 
 /**
  * An anonymous class that implements the page routing logic.
@@ -32,7 +36,12 @@ new class {
             error_log("Serving: $requestUri");
             if($this->rebuildAssets()){
                 // Build assets from the project home directory
-                AssetPipeline::setup(['public-dir' => 'public', 'asset-pipeline' => __DIR__ . '/../../../../bootstrap/assets.php']);
+                AssetPipeline::setup([
+                    'public-dir' => 'public', 
+                    'asset-pipeline' => __DIR__ . '/../../../../bootstrap/assets.php'
+                ]);
+                AssetBuilder::register("sass", fn() => new SassBuilder(new Compiler()));
+                AssetBuilder::register("copy", fn() => new CopyBuilder());
                 require __DIR__ . '/../../../../bootstrap/assets.php';
             }
             $indexFile = __DIR__ . '/../../../../public/index.php';
