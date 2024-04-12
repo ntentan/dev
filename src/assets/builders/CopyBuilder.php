@@ -11,7 +11,6 @@ use ntentan\utils\Filesystem;
  */
 class CopyBuilder extends AssetBuilder
 {
-
     public function build(): void
     {
         $outputPath = $this->getOutputFile();

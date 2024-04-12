@@ -6,17 +6,41 @@ use Exception;
 
 /**
  * Base class for all asset builders.
- * This class provides methods that allow asset builders to receive inputs,
- * detect changes between built assets and sources, and write out built assets. 
+ * This class provides methods that allow asset builders to receive inputs, detect changes between built assets and 
+ * sources, and write out built assets. 
  */
 abstract class AssetBuilder
 {
 
+    /**
+     * Input paths for the processor.
+     * @var array
+     */
     private array $inputs;
+
+    /**
+     * A flag that is set whenever an output is explicitly provided.
+     * When an output is not provided, a temporary output file is used.
+     * @var bool
+     */
     private bool $isTemp = true;
+
+    /**
+     * A path to the output file.
+     * @var string
+     */
     private string $outputFile;
+
+    /**
+     * An array of options for the processor.
+     * @var array
+     */
     private array $options;
 
+    /**
+     * A registry of all supported builders.
+     * @var array
+     */
     private static array $registry;
 
     public static function register($name, $factory): void
@@ -84,18 +108,17 @@ abstract class AssetBuilder
 
     /**
      * Checks if any of the input files have changed since last build.
-     * For builders that have inputs piped from other builders, this method
-     * uses the inputs of the piped builders to recursively reach all input 
-     * files required that are fed to the builder.
+     * 
+     * For builders that have inputs piped from other builders, this method uses the inputs of the piped builders to 
+     * recursively reach all input files required that are fed to the builder.
      * 
      * @param string $outputFile The output file against which inputs are compared for newness.
      * @return boolean
      */
-    public function hasChanges(?string $outputFile = null): bool
+    public function hasChanges(): bool
     {
-
         // Use the default output file of this builder if none was passed
-        $outputFile = $outputFile ?? $this->getOutputFile();
+        $outputFile = $this->getOutputFile();
         if (!file_exists($outputFile)) {
             return true;
         }
@@ -104,30 +127,12 @@ abstract class AssetBuilder
         foreach ($inputs as $input) {
             $files = glob($input);
             foreach ($files as $file) {
-                if (is_a($input, self::class)) {
-                    // Recursively check for changes in piped assets.
-                    if ($input->hasChanges($outputFile)) {
-                        return true;
-                    } else {
-                        continue;
-                    }
-                } 
                 if ($outputModificationTime < filemtime($file)) {
                     return true;
                 }
             }
         }
         return false;
-    }
-
-    public function setIsTemp(bool $isTemp): void
-    {
-        $this->isTemp = $isTemp;
-    }
-
-    public function getIsTemp(): bool
-    {
-        return $this->isTemp;
     }
 
     public function getOutputFile(): ?string
@@ -163,10 +168,9 @@ abstract class AssetBuilder
     abstract public function build(): void;
     
     /**
-     * A brief description of the builder to help developers identify problem 
-     * points when debugging. The value returned by this method can be anything 
-     * helpful, from the name of the builder, to the files being built, or some
-     * internal state of the builder.
+     * A brief description of the builder to help developers identify problem points when debugging. 
+     * The value returned by this method can be anything helpful, from the name of the builder, to the files being 
+     * built, or some internal state of the builder.
      */
     abstract public function getDescription(): string;
 }
