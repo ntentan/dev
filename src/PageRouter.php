@@ -27,6 +27,8 @@ new class {
             $this->config = json_decode(file_get_contents('.ntentan-dev.json'), true);
         }
 
+        set_exception_handler([$this, "exceptionHandler"]);
+
         $requestUri = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ?? "";
         $requestFile = explode('?', $requestUri)[0];
 
@@ -66,6 +68,11 @@ new class {
         return file_exists(__DIR__ . '/../../../../bootstrap/assets.php')
             && !isset($this->config['disable-asset-builder'])
             && $client != 'xmlhttprequest';
+    }
+
+    public function exceptionHandler(Throwable $exception) {
+        require "exception.php";
+        die();
     }
 };
 
