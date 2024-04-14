@@ -48,7 +48,11 @@
             </thead>
             <tbody>
             <?php foreach($exception->getTrace() as $i => $item): ?>
-            <tr><td><?= $i ?></td><td><?= $item['file'] ?> (<?= $item['line'] ?>)</td><td><?= $item['class'] ?></td></tr>
+            <tr>
+                <td><?= $i ?></td>
+                <td><?= $item['file'] ?? "" ?> <?= isset($item['line']) ? "(${item['line']})" : '' ?></td>
+                <td><?= $item['class'] ?? "" ?></td>
+            </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
