@@ -6,7 +6,7 @@ use ScssPhp\ScssPhp\Compiler;
 use ntentan\kaikai\Cache;
 
 /**
- * Builds SCSS files into CSS.
+ * Processes SCSS files into CSS to be bundled with other stylesheets and served.
  */
 class SassBuilder extends AssetBuilder
 {
@@ -56,9 +56,11 @@ class SassBuilder extends AssetBuilder
     {
         $outputFile = $this->getOutputFile();
         $outputModificationTime = filemtime($outputFile);
+        error_log(print_r($this->cache->read($outputFile, fn() => []), true));
         if ($outputFile && $this->cache) {
             foreach($this->cache->read($outputFile, fn() => []) as $file) {
                 if ($outputModificationTime < filemtime($file)) {
+                    error_log("$file modified ...");
                     return true;
                 }
             }
@@ -73,6 +75,7 @@ class SassBuilder extends AssetBuilder
             $code .= $this->sassCompiler->compileString(file_get_contents($input))->getCss();
         }
         if ($this->cache) {
+            error_log(print_r($this->filesTouched, true));
             $this->cache->write($this->getOutputFile(), $this->filesTouched);
         }
         file_put_contents($this->getOutputFile(), $code);
