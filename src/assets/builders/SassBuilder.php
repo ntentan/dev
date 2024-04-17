@@ -58,6 +58,10 @@ class SassBuilder extends AssetBuilder
         $outputModificationTime = filemtime($outputFile);
         error_log(print_r($this->cache->read($outputFile, fn() => []), true));
         if ($outputFile && $this->cache) {
+            if (!$this->cache->exists($outputFile)) {
+                return true;
+            }
+
             foreach($this->cache->read($outputFile, fn() => []) as $file) {
                 if ($outputModificationTime < filemtime($file)) {
                     error_log("$file modified ...");
