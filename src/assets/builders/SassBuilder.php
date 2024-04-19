@@ -4,6 +4,7 @@ namespace ntentan\dev\assets\builders;
 use ntentan\dev\assets\AssetBuilder;
 use ScssPhp\ScssPhp\Compiler;
 use ntentan\kaikai\Cache;
+use ntentan\utils\FileSystem;
 
 /**
  * Processes SCSS files into CSS to be bundled with other stylesheets and served.
@@ -12,7 +13,7 @@ class SassBuilder extends AssetBuilder
 {
     private Compiler $sassCompiler;
     private array $filesTouched;
-    private Cache $cache;
+    private string $cachePath;
 
     public function __construct(Compiler $compiler)
     {
@@ -29,8 +30,8 @@ class SassBuilder extends AssetBuilder
         ]);
     }
 
-    public function setCache(Cache $cache) {
-        $this->cache = $cache;
+    public function setCachePath(string $cachePath) {
+        $this->cachePath = $cachePath;
     }
 
     private function findPaths(string $importPath, string $script) {
@@ -55,20 +56,23 @@ class SassBuilder extends AssetBuilder
     public function hasChanges () : bool
     {
         $outputFile = $this->getOutputFile();
+        $outputFileCache = sprintf("%s/%s.scssbuild", $this->cachePath, md5($outputFile));// "{$this->cachePath}/{$outputFileKey}.scssbuild"; //md5($outputFile);
         $outputModificationTime = filemtime($outputFile);
-        error_log(print_r($this->cache->read($outputFile, fn() => []), true));
-        if ($outputFile && $this->cache) {
-            if (!$this->cache->exists($outputFile)) {
+        // error_log(print_r($this->cache->read($outputFile, fn() => []), true));
+        // if ($this->cachePath) {
+        if (!file_exists($outputFileCache)) {
+            return true;
+        } 
+
+        $touchedFile = json_decode(file_get_contents($outputFileCache));
+
+        foreach($touchedFile as $file) {
+            if ($outputModificationTime < filemtime($file)) {
+                error_log("$file modified ...");
                 return true;
             }
-
-            foreach($this->cache->read($outputFile, fn() => []) as $file) {
-                if ($outputModificationTime < filemtime($file)) {
-                    error_log("$file modified ...");
-                    return true;
-                }
-            }
         }
+        // }
         return parent::hasChanges($outputFile);
     }
 
@@ -78,11 +82,13 @@ class SassBuilder extends AssetBuilder
         foreach($this->expandInputs() as $input) {
             $code .= $this->sassCompiler->compileString(file_get_contents($input))->getCss();
         }
-        if ($this->cache) {
-            error_log(print_r($this->filesTouched, true));
-            $this->cache->write($this->getOutputFile(), $this->filesTouched);
-        }
-        file_put_contents($this->getOutputFile(), $code);
+        // if ($this->cache) {
+            // error_log(print_r($this->filesTouched, true));
+        //     $this->cache->write($this->getOutputFile(), $this->filesTouched);
+        // }
+        $outputFile = $this->getOutputFile();
+        file_put_contents(sprintf("%s/%s.scssbuild", $this->cachePath, md5($outputFile)), json_encode($this->filesTouched));
+        file_put_contents($outputFile, $code);
     }
 
     public function getDescription(): string {

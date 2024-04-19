@@ -47,9 +47,9 @@ new class {
                 ]);
                 AssetBuilder::register("sass", function() {
                     $builder = new SassBuilder(new Compiler());
-                    $cachePath = __DIR__ . "/../../../../.ntentan-build.cache";
+                    $cachePath = __DIR__ . "/../../../../.ntentan-build";
                     Filesystem::directory($cachePath)->createIfNotExists();
-                    $builder->setCache(new Cache(new FileCache($cachePath)));
+                    $builder->setCachePath($cachePath); 
                     return $builder;
                 });
                 AssetBuilder::register("copy", fn() => new CopyBuilder());
