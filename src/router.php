@@ -2,14 +2,13 @@
 // Must always run in the vendor directory
 
 require __DIR__ . '/../../../autoload.php';
+require_once __DIR__ . '/runner.php';
 
 use ntentan\dev\assets\AssetBuilder;
 use ntentan\dev\assets\AssetPipeline;
 use ntentan\dev\assets\builders\CopyBuilder;
 use ntentan\dev\assets\builders\SassBuilder;
-use ntentan\kaikai\backends\FileCache;
 use ntentan\utils\Filesystem;
-use ntentan\kaikai\Cache;
 use ScssPhp\ScssPhp\Compiler;
 
 /**
@@ -40,20 +39,21 @@ new class {
         if(!is_file(($_SERVER["DOCUMENT_ROOT"] ?? ".") . '/' . urldecode($requestFile))) {
             error_log("Serving: $requestUri");
             if($this->rebuildAssets()) {
-                // Build assets from the project home directory
-                AssetPipeline::setup([
-                    'public-dir' => 'public', 
-                    'asset-pipeline' => __DIR__ . '/../../../../bootstrap/assets.php'
-                ]);
-                AssetBuilder::register("sass", function() {
-                    $builder = new SassBuilder(new Compiler());
-                    $cachePath = __DIR__ . "/../../../../.ntentan-build";
-                    Filesystem::directory($cachePath)->createIfNotExists();
-                    $builder->setCachePath($cachePath); 
-                    return $builder;
-                });
-                AssetBuilder::register("copy", fn() => new CopyBuilder());
-                require __DIR__ . '/../../../../bootstrap/assets.php';
+                runAssetBuilder();
+                // // Build assets from the project home directory
+                // AssetPipeline::setup([
+                //     'public-dir' => 'public', 
+                //     'asset-pipeline' => __DIR__ . '/../../../../bootstrap/assets.php'
+                // ]);
+                // AssetBuilder::register("sass", function() {
+                //     $builder = new SassBuilder(new Compiler());
+                //     $cachePath = __DIR__ . "/../../../../.ntentan-build";
+                //     Filesystem::directory($cachePath)->createIfNotExists();
+                //     $builder->setCachePath($cachePath); 
+                //     return $builder;
+                // });
+                // AssetBuilder::register("copy", fn() => new CopyBuilder());
+                // require __DIR__ . '/../../../../bootstrap/assets.php';
             }
             $indexFile = __DIR__ . '/../../../../public/index.php';
             if (file_exists($indexFile)) {

@@ -2,8 +2,6 @@
 
 namespace ntentan\dev\assets;
 
-use ntentan\panie\Container;
-
 /**
  * Compiles public assets.
  */
@@ -11,7 +9,6 @@ class AssetPipeline
 {
     private static $outputDirectory;
     private static $pipelineFile;
-    private static $container;
     private static $forcedRebuild;
     
     public static function setup($options)

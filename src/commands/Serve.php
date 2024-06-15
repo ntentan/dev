@@ -26,7 +26,7 @@ class Serve
         $spec = [STDOUT, STDIN, STDERR];
         $pipes = [];
         $process = proc_open(
-            PHP_BINARY . " -d cli_server.color=1 -t {$docroot} -S {$options['host']}:{$options['port']} " . __DIR__ . "/../../src/PageRouter.php",
+            PHP_BINARY . " -d cli_server.color=1 -t {$docroot} -S {$options['host']}:{$options['port']} " . __DIR__ . "/../../src/router.php",
             $spec, $pipes
         );
         while(proc_get_status($process)['running']) {
