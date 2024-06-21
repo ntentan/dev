@@ -4,77 +4,54 @@
 require __DIR__ . '/../../../autoload.php';
 require_once __DIR__ . '/runner.php';
 
-use ntentan\dev\assets\AssetBuilder;
-use ntentan\dev\assets\AssetPipeline;
-use ntentan\dev\assets\builders\CopyBuilder;
-use ntentan\dev\assets\builders\SassBuilder;
-use ntentan\utils\Filesystem;
-use ScssPhp\ScssPhp\Compiler;
 
-/**
- * An anonymous class that implements the page routing logic.
- */
-new class {
-    
-    private $config;
-    
-    public function __construct() 
-    {
-        if(file_exists('../.ntentan-dev.json')) {
-            $this->config = json_decode(file_get_contents('../.ntentan-dev.json'), true);
-        } else if (file_exists('.ntentan-dev.json')) {
-            $this->config = json_decode(file_get_contents('.ntentan-dev.json'), true);
-        }
+function rebuildAssets() {
+    $client = strtolower(filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH') ?? "");
+    return file_exists(__DIR__ . '/../../../../bootstrap/assets.php')
+        && !isset($this->config['disable-asset-builder'])
+        && $client != 'xmlhttprequest';
+}
 
-        set_exception_handler([$this, "exceptionHandler"]);
+  
+function run() 
+{
+    $config = [];
 
-        $requestUri = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ?? "";
-        $requestFile = explode('?', $requestUri)[0];
-
-        if($requestUri == '/' && !file_exists('index.php')) {
-            require __DIR__ . "/../installer/setup.php";
-            die();
-        }
-
-        if(!is_file(($_SERVER["DOCUMENT_ROOT"] ?? ".") . '/' . urldecode($requestFile))) {
-            error_log("Serving: $requestUri");
-            if($this->rebuildAssets()) {
-                runAssetBuilder();
-                // // Build assets from the project home directory
-                // AssetPipeline::setup([
-                //     'public-dir' => 'public', 
-                //     'asset-pipeline' => __DIR__ . '/../../../../bootstrap/assets.php'
-                // ]);
-                // AssetBuilder::register("sass", function() {
-                //     $builder = new SassBuilder(new Compiler());
-                //     $cachePath = __DIR__ . "/../../../../.ntentan-build";
-                //     Filesystem::directory($cachePath)->createIfNotExists();
-                //     $builder->setCachePath($cachePath); 
-                //     return $builder;
-                // });
-                // AssetBuilder::register("copy", fn() => new CopyBuilder());
-                // require __DIR__ . '/../../../../bootstrap/assets.php';
-            }
-            $indexFile = __DIR__ . '/../../../../public/index.php';
-            if (file_exists($indexFile)) {
-                require $indexFile;
-            }
-            die();
-        }
+    if(file_exists('../.ntentan-dev.json')) {
+        $config = json_decode(file_get_contents('../.ntentan-dev.json'), true);
+    } else if (file_exists('.ntentan-dev.json')) {
+        $config = json_decode(file_get_contents('.ntentan-dev.json'), true);
     }
 
-    private function rebuildAssets() {
-        $client = strtolower(filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH') ?? "");
-        return file_exists(__DIR__ . '/../../../../bootstrap/assets.php')
-            && !isset($this->config['disable-asset-builder'])
-            && $client != 'xmlhttprequest';
-    }
-
-    public function exceptionHandler(Throwable $exception) {
+    set_exception_handler(function (Throwable $exception) {
         require "exception.php";
         die();
+    });
+
+    $requestUri = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ?? "";
+    $requestFile = explode('?', $requestUri)[0];
+
+    if($requestUri == '/' && !file_exists('src/main.php')) {
+        require __DIR__ . "/../installer/setup.php";
+        die();
     }
-};
+
+    if(!is_file(($_SERVER["DOCUMENT_ROOT"] ?? ".") . '/' . urldecode($requestFile))) {
+        error_log("Serving: $requestUri");
+        if(rebuildAssets()) {
+            runAssetBuilder();
+        }
+        $indexFile = __DIR__ . '/../../../../src/main.php';
+        if (file_exists($indexFile)) {
+            require $indexFile;
+        }
+        die();
+    }
+    
+    return false;
+}
+
+//};
 
 // If we made it this far then yield so php handles the rest
-return false;
+return run();
