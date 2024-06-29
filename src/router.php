@@ -29,14 +29,16 @@ function run()
     });
 
     $requestUri = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL) ?? "";
-    $requestFile = explode('?', $requestUri)[0];
+    $requestFile = ($_SERVER['DOCUMENT_ROOT'] ?? ".") . "/" . urldecode(explode('?', $requestUri)[0]);
 
+    // Force the ntentan installer if the application has not been setup
     if($requestUri == '/' && !file_exists('src/main.php')) {
         require __DIR__ . "/../installer/setup.php";
         die();
     }
 
-    if(!is_file(($_SERVER["DOCUMENT_ROOT"] ?? ".") . '/' . urldecode($requestFile))) {
+    // Skip existing files so they could be served up later.
+    if(!is_file($requestFile)) {
         error_log("Serving: $requestUri");
         if(rebuildAssets()) {
             runAssetBuilder();
@@ -47,6 +49,25 @@ function run()
         }
         die();
     }
+    
+    // Check and send the appropriate headers for gzip compressed javascript files and css files
+    $fileParts = explode(".", strtolower($requestFile));
+    $n = count($fileParts);
+    if (($fileParts[$n - 1] == 'gz' || $fileParts[$n - 1] == 'br') && in_array($fileParts[$n - 2], ['css', 'js', 'wasm'])) {
+        header("Content-Encoding: " . 
+            match($fileParts[$n - 1]) {
+                'gz' => 'gzip',
+                'br' => 'br'
+            });
+        header("Content-type: " . 
+            match($fileParts[$n - 2]) {
+                'css' => 'text/css',
+                'js'=> 'application/js',
+                'wasm' => 'application/wasm'
+            });
+        echo file_get_contents($requestFile);
+        die();
+    }   
     
     return false;
 }
