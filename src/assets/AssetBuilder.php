@@ -35,7 +35,7 @@ abstract class AssetBuilder
      * An array of options for the processor.
      * @var array
      */
-    private array $options;
+    private array $options = [];
 
     /**
      * A registry of all supported builders.

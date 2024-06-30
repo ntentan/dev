@@ -19,7 +19,8 @@ class SassBuilder extends AssetBuilder
     {
         $this->sassCompiler = $compiler;
         $this->filesTouched = [];
-        $this->sassCompiler->setImportPaths([
+        $options = $this->getOptions();
+        $this->sassCompiler->setImportPaths(array_merge([
             function ($script) {
                 if (Compiler::isCssImport($script)) {
                     return null;
@@ -27,7 +28,7 @@ class SassBuilder extends AssetBuilder
                 $importPath = realpath(dirname($this->getInputs()[0]));
                 return $this->findPaths($importPath, $script);
             }
-        ]);
+        ], [$options['include_paths'] ?? []]));
     }
 
     public function setCachePath(string $cachePath) {
@@ -56,10 +57,9 @@ class SassBuilder extends AssetBuilder
     public function hasChanges () : bool
     {
         $outputFile = $this->getOutputFile();
-        $outputFileCache = sprintf("%s/%s.scssbuild", $this->cachePath, md5($outputFile));// "{$this->cachePath}/{$outputFileKey}.scssbuild"; //md5($outputFile);
+        $outputFileCache = sprintf("%s/%s.scssbuild", $this->cachePath, md5($outputFile));
         $outputModificationTime = filemtime($outputFile);
-        // error_log(print_r($this->cache->read($outputFile, fn() => []), true));
-        // if ($this->cachePath) {
+
         if (!file_exists($outputFileCache)) {
             return true;
         } 
@@ -72,7 +72,7 @@ class SassBuilder extends AssetBuilder
                 return true;
             }
         }
-        // }
+        
         return parent::hasChanges($outputFile);
     }
 
@@ -82,10 +82,7 @@ class SassBuilder extends AssetBuilder
         foreach($this->expandInputs() as $input) {
             $code .= $this->sassCompiler->compileString(file_get_contents($input))->getCss();
         }
-        // if ($this->cache) {
-            // error_log(print_r($this->filesTouched, true));
-        //     $this->cache->write($this->getOutputFile(), $this->filesTouched);
-        // }
+
         $outputFile = $this->getOutputFile();
         file_put_contents(sprintf("%s/%s.scssbuild", $this->cachePath, md5($outputFile)), json_encode($this->filesTouched));
         file_put_contents($outputFile, $code);

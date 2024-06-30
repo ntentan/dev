@@ -5,11 +5,13 @@ class Asset
 {
     public static function __callStatic($method, $arguments)
     {
-        //$builder = AssetPipeline::getContainer()->resolve("{$method}_builder");
-        $builder = AssetBuilder::create($method, $arguments[2] ?? []);
+        $builder = AssetBuilder::create($method);
         $builder->setInputs(is_array($arguments[0]) ? $arguments[0] : [$arguments[0]]);
         if(isset($arguments[1])) {
             $builder->setOutputFile($arguments[1]);
+        }
+        if(isset($arguments[2])) {
+            $builder->setOptions($arguments[2]);
         }
         return $builder;
     }

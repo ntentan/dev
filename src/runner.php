@@ -8,7 +8,7 @@ use ScssPhp\ScssPhp\Compiler;
 
 
 function runAssetBuilder(
-        string $pipeline = __DIR__ . '/../../../../bootstrap/assets.php', 
+        string $pipeline = __DIR__ . '/../../../../src/assets.php', 
         bool $forceRebuild = false,
         string $cachePath = __DIR__ . "/../../../../.ntentan-build"
     ) {

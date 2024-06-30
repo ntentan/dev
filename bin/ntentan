@@ -44,8 +44,8 @@ $parser->addOption([
 $parser->addOption([
     'short_name' => 'a', 'name' => 'asset-pipeline',
     'help' => 'Location of the asset pipeline file',
-    'default' => 'bootstrap/assets.php',
-    'command' => 'build',
+    'default' => 'src/assets.php',
+    'command' => ['build', 'serve'],
     'type' => 'string'
 ]);
 

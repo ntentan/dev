@@ -5,10 +5,10 @@ require __DIR__ . '/../../../autoload.php';
 require_once __DIR__ . '/runner.php';
 
 
-function rebuildAssets() {
+function rebuildAssets($config) {
     $client = strtolower(filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH') ?? "");
-    return file_exists(__DIR__ . '/../../../../bootstrap/assets.php')
-        && !isset($this->config['disable-asset-builder'])
+    return file_exists(__DIR__ . '/../../../../src/assets.php')
+        && !isset($config['disable-asset-builder'])
         && $client != 'xmlhttprequest';
 }
 
@@ -40,7 +40,7 @@ function run()
     // Skip existing files so they could be served up later.
     if(!is_file($requestFile)) {
         error_log("Serving: $requestUri");
-        if(rebuildAssets()) {
+        if(rebuildAssets($config)) {
             runAssetBuilder();
         }
         $indexFile = __DIR__ . '/../../../../src/main.php';
