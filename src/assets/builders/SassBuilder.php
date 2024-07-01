@@ -19,35 +19,40 @@ class SassBuilder extends AssetBuilder
     {
         $this->sassCompiler = $compiler;
         $this->filesTouched = [];
-        $options = $this->getOptions();
         $this->sassCompiler->setImportPaths(array_merge([
             function ($script) {
                 if (Compiler::isCssImport($script)) {
                     return null;
                 }
-                $importPath = realpath(dirname($this->getInputs()[0]));
-                return $this->findPaths($importPath, $script);
+                $importPaths = array_merge([realpath(dirname($this->getInputs()[0]))], $this->getOptions()['include_paths'] ?? []);
+                return $this->findPath($importPaths, $script);
             }
-        ], [$options['include_paths'] ?? []]));
+        ]));
     }
 
-    public function setCachePath(string $cachePath) {
+    /**
+     * Set the location of ntentans internal build cache.
+     * @param string $cachePath
+     */
+    public function setCachePath(string $cachePath): void {
         $this->cachePath = $cachePath;
     }
 
-    private function findPaths(string $importPath, string $script) {
-        $hasExtension = strlen($importPath) > 5 && substr($importPath, -5) == ".scss";
+    private function findPath(array $importPaths, string $script) {
+        $hasExtension = strlen($script) > 5 && substr($script, -5) == ".scss";
 
         // Add an an extension and return path
         if (!$hasExtension) {
             $script .= ".scss";
         }
         
-        $targetFiles = ["$importPath/$script", "$importPath/_$script"];
-        foreach($targetFiles as $targetFile) {
-            if(file_exists($targetFile)) {
-                $this->filesTouched[]= $targetFile;
-                return $targetFile;
+        foreach($importPaths as $importPath) {
+            $targetFiles = ["$importPath/$script", "$importPath/_$script"];
+            foreach($targetFiles as $targetFile) {
+                if(file_exists($targetFile)) {
+                    $this->filesTouched[]= $targetFile;
+                    return $targetFile;
+                }
             }
         }
 
