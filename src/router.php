@@ -11,7 +11,6 @@ function rebuildAssets($config) {
         && !isset($config['disable-asset-builder'])
         && $client != 'xmlhttprequest';
 }
-
   
 function run() 
 {
@@ -24,6 +23,7 @@ function run()
     }
 
     set_exception_handler(function (Throwable $exception) {
+        http_response_code(500);
         require "exception.php";
         die();
     });
