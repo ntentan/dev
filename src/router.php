@@ -32,7 +32,7 @@ function run()
     $requestFile = ($_SERVER['DOCUMENT_ROOT'] ?? ".") . "/" . urldecode(explode('?', $requestUri)[0]);
 
     // Force the ntentan installer if the application has not been setup
-    if($requestUri == '/' && !file_exists('src/main.php')) {
+    if($requestUri == '/' && !file_exists('src/php/main.php')) {
         require __DIR__ . "/../installer/setup.php";
         die();
     }
@@ -43,7 +43,7 @@ function run()
         if(rebuildAssets($config)) {
             runAssetBuilder();
         }
-        $indexFile = __DIR__ . '/../../../../src/main.php';
+        $indexFile = __DIR__ . '/../../../../src/php/main.php';
         if (file_exists($indexFile)) {
             require $indexFile;
         }
