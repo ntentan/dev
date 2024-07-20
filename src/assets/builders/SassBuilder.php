@@ -24,7 +24,9 @@ class SassBuilder extends AssetBuilder
                 if (Compiler::isCssImport($script)) {
                     return null;
                 }
-                $importPaths = array_merge([realpath(dirname($this->getInputs()[0]))], $this->getOptions()['include_paths'] ?? []);
+                $importPaths = array_merge(
+                    [realpath(dirname($this->expandInputs()[0]))], $this->getOptions()['include_paths'] ?? []
+                );
                 return $this->findPath($importPaths, $script);
             }
         ]));
