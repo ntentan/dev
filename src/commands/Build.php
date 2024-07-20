@@ -2,14 +2,12 @@
 
 namespace ntentan\dev\commands;
 
-require_once __DIR__ . '/../runner.php';
+require_once __DIR__ . '/../builder.php';
 
 use clearice\io\Io;
 use ntentan\dev\assets\AssetPipeline;
 
-/**
- * Build
- */
+
 class Build
 {
     private $io;
@@ -23,8 +21,6 @@ class Build
     {
         if (file_exists($options['asset-pipeline'])) {
             runAssetBuilder($options['asset-pipeline'], true);
-            // AssetPipeline::setup($options);
-            // require $options['asset-pipeline'];
             return 0;
         } else {
             $this->io->error("Cannot find asset pipeline {$options['asset-pipeline']}\n");

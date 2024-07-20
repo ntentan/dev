@@ -7,18 +7,14 @@ use ntentan\utils\Filesystem;
 use ScssPhp\ScssPhp\Compiler;
 
 
-function runAssetBuilder(
-        string $pipeline = __DIR__ . '/../../../../src/assets.php', 
-        bool $forceRebuild = false,
-        string $cachePath = __DIR__ . "/../../../../.ntentan-build"
-    ) {
+function runAssetBuilder(array $config) {
     
-    // Build assets from the project home directory
-    AssetPipeline::setup([
-        'public-dir' => 'public', 
-        'asset-pipeline' => $pipeline,
-        'force' => $forceRebuild
-    ]);
+    $pipeline = $config['pipeline-path'] ?? "src/php/assets.php";
+    $cachePath = $config["cache-path"] ?? ".ntentan-build";
+    
+    error_log("Looking for assets to rebuild.");
+    
+    AssetPipeline::setup($config);
 
     AssetBuilder::register("sass", function() use ($cachePath) {
         $builder = new SassBuilder(new Compiler());

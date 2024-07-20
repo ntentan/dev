@@ -6,8 +6,8 @@ use Exception;
 
 /**
  * Base class for all asset builders.
- * This class provides methods that allow asset builders to receive inputs, detect changes between built assets and 
- * sources, and write out built assets. 
+ * This class provides methods that allow asset builders to receive inputs, detect changes between built assets and
+ * sources, and write out built assets.
  */
 abstract class AssetBuilder
 {
@@ -37,6 +37,8 @@ abstract class AssetBuilder
      */
     private array $options = [];
 
+    private array $expandedInputs = [];
+
     /**
      * A registry of all supported builders.
      * @var array
@@ -55,7 +57,9 @@ abstract class AssetBuilder
         }
         return self::$registry[$name]();
     }
-
+    /**
+     * @return void
+     */
     public function __destruct()
     {
         $outputFile = $this->getOutputFile();
@@ -66,17 +70,12 @@ abstract class AssetBuilder
 
     /**
      * Set the input paths to the assets used by this builder.
-     * 
+     *
      * @param array $inputs
      */
     public function setInputs(array $inputs): void
     {
         $this->inputs = $inputs;
-    }
-
-    public function getInputs(): array
-    {
-        return $this->inputs;
     }
 
     public function setOutputFile(string $output) : AssetBuilder
@@ -88,30 +87,35 @@ abstract class AssetBuilder
 
     /**
      * Expand glob inputs that are passed through the asset pipeline.
-     * 
+     *
      * @return array
      */
     protected function expandInputs() : array
     {
-        $files = [];
-        $inputs = $this->getInputs();
-        foreach ($inputs as $input) {
-            $resolvedFiles = array_map(fn($path) => realpath($path), glob($input));
+        if (!empty($this->expandedInputs)) {
+            return $this->expandedInputs;
+        }
+        foreach ($this->inputs as $input) {
+            $allFiles = glob($input);
+            if (empty($allFiles)) {
+                $allFiles = glob(AssetPipeline::getAssetsPath() . "/$input");
+            }
+            $resolvedFiles = array_map(fn($path) => realpath($path), $allFiles);
             if(count($resolvedFiles)) {
-                $files = array_merge($files, $resolvedFiles);
+                $this->expandedInputs = array_merge($this->expandedInputs, $resolvedFiles);
             } else {
                 error_log("Cannot find input file [{$input}]");
             }
         }
-        return $files;
+        return $this->expandedInputs;
     }
 
     /**
      * Checks if any of the input files have changed since last build.
-     * 
-     * For builders that have inputs piped from other builders, this method uses the inputs of the piped builders to 
+     *
+     * For builders that have inputs piped from other builders, this method uses the inputs of the piped builders to
      * recursively reach all input files required that are fed to the builder.
-     * 
+     *
      * @param string $outputFile The output file against which inputs are compared for newness.
      * @return boolean
      */
@@ -123,7 +127,7 @@ abstract class AssetBuilder
             return true;
         }
         $outputModificationTime = filemtime($outputFile);
-        $inputs = $this->getInputs();
+        $inputs = $this->expandInputs();
         foreach ($inputs as $input) {
             $files = glob($input);
             foreach ($files as $file) {
@@ -140,8 +144,8 @@ abstract class AssetBuilder
         if (!isset($this->outputFile)) {
             return null;
         }
-        
-        $file = AssetPipeline::getAssetsDirectory() . "/{$this->outputFile}";
+
+        $file = AssetPipeline::getPublicPath() . "/{$this->outputFile}";
         $directory = dirname($file);
         if (!file_exists($directory)) {
             mkdir($directory, 0755, true);
@@ -166,12 +170,11 @@ abstract class AssetBuilder
     }
 
     abstract public function build(): void;
-    
+
     /**
-     * A brief description of the builder to help developers identify problem points when debugging. 
-     * The value returned by this method can be anything helpful, from the name of the builder, to the files being 
+     * A brief description of the builder to help developers identify problem points when debugging.
+     * The value returned by this method can be anything helpful, from the name of the builder, to the files being
      * built, or some internal state of the builder.
      */
     abstract public function getDescription(): string;
 }
-

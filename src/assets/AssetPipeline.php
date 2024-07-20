@@ -1,40 +1,44 @@
 <?php
-
 namespace ntentan\dev\assets;
 
-/**
- * Compiles public assets.
- */
-class AssetPipeline 
+
+class AssetPipeline
 {
-    private static $outputDirectory;
-    private static $pipelineFile;
-    private static $forcedRebuild;
-    
+    private static string $publicPath;
+    private static string $assetsPath;
+    private static string $pipelinePath;
+    private static string $forcedRebuild;
+
     public static function setup($options)
     {
-        self::$outputDirectory = $options['public-dir'];
-        self::$pipelineFile = $options['asset-pipeline'];
+        self::$publicPath = $options['public-path'];
+        self::$pipelinePath = $options['pipeline-path'];
         self::$forcedRebuild = $options['force'] ?? false;
-    }
-    
-    public static function getAssetsDirectory()
-    {
-        return self::$outputDirectory;
+        self::$assetsPath = $options['assets-path'];
     }
 
-    public static function define(AssetBuilder ...$builders) 
+    public static function getPublicPath()
     {
-        $pipelineLastModified = filemtime(self::$pipelineFile);
+        return self::$publicPath;
+    }
+
+    public static function getAssetsPath()
+    {
+        return self::$assetsPath;
+    }
+
+    public static function define(AssetBuilder ...$builders)
+    {
+        $pipelineLastModified = filemtime(self::$pipelinePath);
         error_log("Looking for modified assets to rebuild ...");
-        
+
         foreach($builders as $builder) {
             $outputFile = $builder->getOutputFile();
             if($outputFile == null) {
                 error_log("No output path specified for {$builder->getDescription()}");
                 continue;
             }
-            
+
             $lastModified = file_exists($outputFile) ? filemtime($outputFile) : time();
             if($builder->hasChanges() || $lastModified < $pipelineLastModified || self::$forcedRebuild) {
                 $builder->build();
