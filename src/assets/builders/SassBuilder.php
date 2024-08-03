@@ -19,17 +19,6 @@ class SassBuilder extends AssetBuilder
     {
         $this->sassCompiler = $compiler;
         $this->filesTouched = [];
-        $this->sassCompiler->setImportPaths(array_merge([
-            function ($script) {
-                if (Compiler::isCssImport($script)) {
-                    return null;
-                }
-                $importPaths = array_merge(
-                    [realpath(dirname($this->expandInputs()[0]))], $this->getOptions()['include_paths'] ?? []
-                );
-                return $this->findPath($importPaths, $script);
-            }
-        ]));
     }
 
     /**
@@ -87,6 +76,17 @@ class SassBuilder extends AssetBuilder
     {
         $code = "";
         foreach($this->expandInputs() as $input) {
+            $this->sassCompiler->setImportPaths(array_merge([
+                function ($script) use ($input) {
+                    if (Compiler::isCssImport($script)) {
+                        return null;
+                    }
+                    $importPaths = array_merge(
+                        [realpath(dirname($input))], $this->getOptions()['include_paths'] ?? []
+                        );
+                    return $this->findPath($importPaths, $script);
+                }
+            ]));
             $code .= $this->sassCompiler->compileString(file_get_contents($input))->getCss();
         }
 

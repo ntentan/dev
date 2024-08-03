@@ -8,7 +8,7 @@ class AssetPipeline
     private static string $assetsPath;
     private static string $pipelinePath;
     private static string $forcedRebuild;
-    private static array $defined;
+    private static array $defined = [];
 
     public static function setup($options)
     {
@@ -28,9 +28,9 @@ class AssetPipeline
         return self::$assetsPath;
     }
     
-    public static function append(AssetBuilder $builders)
+    public static function append(AssetBuilder ...$builders)
     {
-        self::$defined[] = $builders;
+        self::$defined = array_merge(self::$defined, $builders);
     }
 
     public static function run()
