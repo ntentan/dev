@@ -8,6 +8,7 @@ class AssetPipeline
     private static string $assetsPath;
     private static string $pipelinePath;
     private static string $forcedRebuild;
+    private static array $defined;
 
     public static function setup($options)
     {
@@ -26,13 +27,18 @@ class AssetPipeline
     {
         return self::$assetsPath;
     }
+    
+    public static function append(AssetBuilder $builders)
+    {
+        self::$defined[] = $builders;
+    }
 
-    public static function define(AssetBuilder ...$builders)
+    public static function run()
     {
         $pipelineLastModified = filemtime(self::$pipelinePath);
         error_log("Looking for modified assets to rebuild ...");
 
-        foreach($builders as $builder) {
+        foreach(self::$defined as $builder) {
             $outputFile = $builder->getOutputFile();
             if($outputFile == null) {
                 error_log("No output path specified for {$builder->getDescription()}");

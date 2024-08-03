@@ -24,6 +24,6 @@ function runAssetBuilder(array $config) {
     });
 
     AssetBuilder::register("copy", fn() => new CopyBuilder());
-    
     require $pipeline;
+    AssetPipeline::run();
 }
