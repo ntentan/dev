@@ -40,7 +40,7 @@
         <header>
             <h1><?= get_class($exception) ?></h1>
         </header>
-        <p><?= $exception->getMessage() ?> on line <?= $exception->getLine() ?> of <?= $exception->getFile() ?></p>
+        <p><?= $exception->getMessage() ?></p> <p>This exception was thrown on line <?= $exception->getLine() ?> of <?= $exception->getFile() ?></p>
         <h2>Stack Trace</h2>
         <table>
             <thead>
