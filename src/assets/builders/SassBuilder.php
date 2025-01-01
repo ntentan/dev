@@ -12,13 +12,11 @@ use ntentan\utils\FileSystem;
 class SassBuilder extends AssetBuilder
 {
     private Compiler $sassCompiler;
-    private array $filesTouched;
     private string $cachePath;
 
     public function __construct(Compiler $compiler)
     {
         $this->sassCompiler = $compiler;
-        $this->filesTouched = [];
     }
 
     /**
@@ -41,7 +39,6 @@ class SassBuilder extends AssetBuilder
             $targetFiles = ["$importPath/$script", "$importPath/_$script"];
             foreach($targetFiles as $targetFile) {
                 if(file_exists($targetFile)) {
-                    $this->filesTouched[]= $targetFile;
                     return $targetFile;
                 }
             }
@@ -75,8 +72,10 @@ class SassBuilder extends AssetBuilder
     public function build(): void
     {
         $code = "";
+        $filesTouched = [];
+
         foreach($this->expandInputs() as $input) {
-            $this->sassCompiler->setImportPaths(array_merge([
+            $this->sassCompiler->setImportPaths([
                 function ($script) use ($input) {
                     if (Compiler::isCssImport($script)) {
                         return null;
@@ -86,12 +85,15 @@ class SassBuilder extends AssetBuilder
                         );
                     return $this->findPath($importPaths, $script);
                 }
-            ]));
-            $code .= $this->sassCompiler->compileString(file_get_contents($input))->getCss();
+            ]);
+            $compilationResult = $this->sassCompiler->compileString(file_get_contents($input));
+            $code .= $compilationResult->getCss();
+            $filesTouched = array_merge($filesTouched, $compilationResult->getIncludedFiles());
+            $filesTouched []= $input;
         }
 
         $outputFile = $this->getOutputFile();
-        file_put_contents(sprintf("%s/%s.scssbuild", $this->cachePath, md5($outputFile)), json_encode($this->filesTouched));
+        file_put_contents(sprintf("%s/%s.scssbuild", $this->cachePath, md5($outputFile)), json_encode($filesTouched));
         file_put_contents($outputFile, $code);
     }
 
