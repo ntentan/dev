@@ -51,11 +51,10 @@ class SassBuilder extends AssetBuilder
     {
         $outputFile = $this->getOutputFile();
         $outputFileCache = sprintf("%s/%s.scssbuild", $this->cachePath, md5($outputFile));
-        $outputModificationTime = filemtime($outputFile);
-
         if (!file_exists($outputFileCache)) {
             return true;
         } 
+        $outputModificationTime = filemtime($outputFile);
 
         $touchedFile = json_decode(file_get_contents($outputFileCache));
 
