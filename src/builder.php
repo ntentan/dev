@@ -8,8 +8,8 @@ use ScssPhp\ScssPhp\Compiler;
 use ntentan\dev\assets\builders\JsBuilder;
 
 
-function runAssetBuilder(array $config) {
-    
+function runAssetBuilder(array $config): void
+{
     $pipeline = $config['pipeline-path'] ?? "src/php/assets.php";
     $cachePath = $config["cache-path"] ?? ".ntentan-build";
     

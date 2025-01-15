@@ -27,24 +27,28 @@ $parser->addOption([
     'command' => 'serve',
     'type' => 'string'
 ]);
-$parser->addOption([
-    'short_name' => 'b', 'name' => 'insert-breakpoints',
-    'help' => 'inserts an exception handler which callsed xdebug_break()',
-    'command' => 'serve'
-]);
 
 // Options for build command
 $parser->addOption([
-    'short_name' => 'p', 'name' => 'public-dir',
+    'short_name' => 'o', 'name' => 'public-path',
     'help' => 'Location of public directory',
     'default' => 'public',
-    'command' => 'build',
+    'command' => ['build', 'serve'],
     'type' => 'string'
 ]);
+
 $parser->addOption([
-    'short_name' => 'a', 'name' => 'asset-pipeline',
+    'short_name' => 'P', 'name' => 'pipeline-path',
     'help' => 'Location of the asset pipeline file',
-    'default' => 'src/assets.php',
+    'default' => 'src/php/assets.php',
+    'command' => ['build', 'serve'],
+    'type' => 'string'
+]);
+
+$parser->addOption([
+    'short_name' => 'a', 'name' => 'assets-path',
+    'help' => 'Default location of input asset files',
+    'default' => 'assets',
     'command' => ['build', 'serve'],
     'type' => 'string'
 ]);

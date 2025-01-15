@@ -19,13 +19,10 @@ class Build
 
     public function run($options)
     {
+        if (!file_exists($options['pipeline-path'])) {
+            $this->io->error( "Asset pipeline file not found: {$options['pipeline-path']}\n");
+            exit(1);
+        }
         runAssetBuilder($options);
-//        if (file_exists($options['asset-pipeline'])) {
-//            runAssetBuilder($options['asset-pipeline'], true);
-//            return 0;
-//        } else {
-//            $this->io->error("Cannot find asset pipeline {$options['asset-pipeline']}\n");
-//            return 10;
-//        }
     }
 }
