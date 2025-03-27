@@ -1,4 +1,8 @@
-<html>
+<!--
+Exception: <?= $exception->getMessage() ?>
+-->
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <title>Ntentan Exception - <?= $exception->getMessage() ?></title>
         <style>

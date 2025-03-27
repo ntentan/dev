@@ -27,6 +27,7 @@ function run(): bool
 
     // Force the ntentan installer if the application has not been setup
     if($requestUri == '/' && !file_exists("$homeDirectory/src/php/main.php")) {
+        chdir($homeDirectory);
         require __DIR__ . "/../installer/setup.php";
         die();
     }
