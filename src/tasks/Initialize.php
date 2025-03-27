@@ -15,23 +15,23 @@ class Initialize
     private $templates;
     private $io;
 
-    public function __construct(Templates $templates, Io $io = null)
+    public function __construct(Templates $templates, Io $io)
     {
         $this->templates = $templates;
         $this->io = $io;
     }
 
-    public function setOptions($options)
+    public function setOptions($options): void
     {
         $this->options = $options;
     }
 
-    private function writeTemplateFile($template, $data)
+    private function writeTemplateFile($template, $data): void
     {
         file_put_contents($template, $this->templates->render("$this->devDirectory/code_templates/app/$template.mustache", $data));
     }
 
-    private function runPreflightChecks()
+    private function runPreflightChecks(): array
     {
         $results = [];
 
@@ -50,7 +50,7 @@ class Initialize
         ];
     }
 
-    public function run()
+    public function run(): array
     {
         $preFlight = $this->runPreflightChecks();
 

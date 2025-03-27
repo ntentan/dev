@@ -11,7 +11,6 @@ $parser = new ArgumentParser();
 
 $parser->addCommand(['name' => 'serve', 'help' => 'Start the internal php server']);
 $parser->addCommand(['name' => 'build', 'help' => 'Run builds scripts to build assets and resources']);
-$parser->addCommand(['name' => 'init', 'help' => 'Initialize the application']);
 
 $parser->addOption([
     'short_name' => 'p', 'name' => 'port',
@@ -60,25 +59,6 @@ $parser->addOption([
     'command' => 'build',
 ]);
 
-// Options for init command
-$parser->addOption([
-    'short_name' => 'n', 'name' => 'name',
-    'help' => 'Provide the name of the application',
-    'command' => 'init'
-]);
-
-$parser->addOption([
-    'short_name' => 's', 'name' => 'namespace',
-    'help' => 'Provide the namespace of the application\'s classes',
-    'command' => 'init'
-]);
-
-$parser->addOption([
-    'name' => 'no-prompts',
-    'help' => 'Disable all interactive prompts',
-    'command' => 'init'
-]);
-
 $parser->enableHelp('Ntentan PHP Framework Dev Tool');
 $options = $parser->parse();
 
@@ -88,13 +68,7 @@ if(!isset($options['__command'])) {
 }
 
 $container = new Container();
-$container->setup([
-    Templates::class => [
-        function() {
-            return new Templates();
-        }
-    ]
-]);
+$container->setup([Templates::class => fn() => Templates::getDefaultInstance()]);
 $class = "\\ntentan\\dev\\commands\\" . ucfirst($options['__command']);
 
 exit($container->get($class)->run($options));

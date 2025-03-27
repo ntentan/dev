@@ -7,7 +7,8 @@ use ntentan\utils\Input;
 
 require "vendor/autoload.php";
 
-$templateEngine = new Templates();
+
+$templateEngine = Templates::getDefaultInstance();
 $templateEngine->prependPath(__DIR__ . "/views");
 
 if(Input::exists(Input::POST, 'namespace')) {

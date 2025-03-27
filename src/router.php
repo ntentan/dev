@@ -1,19 +1,20 @@
 <?php
+// Must always run in the vendor directory
 
 require __DIR__ . '/../../../autoload.php';
 require_once __DIR__ . '/builder.php';
 
 
-function run() 
+function run(): bool
 {
     $homeDirectory = __DIR__ . "/../../../..";
     $runtimeConfig = "$homeDirectory/.ntentan-dev.json";
     chdir("$homeDirectory/public/");
-    
+
     $config = [];
     if(file_exists($runtimeConfig)) {
         $config = json_decode(file_get_contents($runtimeConfig), true);
-    } 
+    }
 
     set_exception_handler(function (Throwable $exception) {
         http_response_code(500);
@@ -34,7 +35,7 @@ function run()
     if(!is_file($requestFile)) {
         error_log("Serving: {$_SERVER['REQUEST_URI']}");
         $assetPipeline = "$homeDirectory/src/php/assets.php";
-        
+
         if (file_exists($assetPipeline)
                 && !isset($config['disable-asset-builder'])
                 && strtolower(filter_input(INPUT_SERVER, 'HTTP_X_REQUESTED_WITH') ?? "") != 'xmlhttprequest'
@@ -46,7 +47,7 @@ function run()
                 'assets-path' => $homeDirectory
             ]);
         }
-        
+
         $indexFile = "$homeDirectory/src/php/main.php";
         if (file_exists($indexFile)) {
             require $indexFile;
