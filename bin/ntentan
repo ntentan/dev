@@ -10,20 +10,21 @@ use ntentan\panie\Container;
 $parser = new ArgumentParser();
 
 $parser->addCommand(['name' => 'serve', 'help' => 'Start the internal php server']);
+$parser->addCommand(['name' => 'debug', 'help' => 'Start the internal php server with Xdebug enabled']);
 $parser->addCommand(['name' => 'build', 'help' => 'Run builds scripts to build assets and resources']);
 
 $parser->addOption([
     'short_name' => 'p', 'name' => 'port',
     'help' => 'Server port value (defaults to 8080)',
     'default' => '8080',
-    'command' => 'serve',
+    'command' => ['serve', 'debug'],
     'type' => 'string'
 ]);
 $parser->addOption([
     'short_name' => 'h', 'name' => 'host',
     'help' => 'Host to be bound to (defaults to 127.0.0.1)',
     'default' => '127.0.0.1',
-    'command' => 'serve',
+    'command' => ['serve', 'debug'],
     'type' => 'string'
 ]);
 
@@ -32,7 +33,7 @@ $parser->addOption([
     'short_name' => 'o', 'name' => 'public-path',
     'help' => 'Location of public directory',
     'default' => 'public',
-    'command' => ['build', 'serve'],
+    'command' => ['build', 'serve', 'debug'],
     'type' => 'string'
 ]);
 
@@ -40,7 +41,7 @@ $parser->addOption([
     'short_name' => 'P', 'name' => 'pipeline-path',
     'help' => 'Location of the asset pipeline file',
     'default' => 'src/php/assets.php',
-    'command' => ['build', 'serve'],
+    'command' => ['build', 'serve', 'debug'],
     'type' => 'string'
 ]);
 
@@ -48,7 +49,7 @@ $parser->addOption([
     'short_name' => 'a', 'name' => 'assets-path',
     'help' => 'Default location of input asset files',
     'default' => 'assets',
-    'command' => ['build', 'serve'],
+    'command' => ['build', 'serve', 'debug'],
     'type' => 'string'
 ]);
 
