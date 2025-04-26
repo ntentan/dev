@@ -60,6 +60,13 @@ $parser->addOption([
     'command' => 'build',
 ]);
 
+$parser->addOption([
+    'short_name' => 'd', 'name' => 'dump-router',
+    'help' => 'Dump the router command for debugging',
+    'default' => false,
+    'command' => 'debug'
+]);
+
 $parser->enableHelp('Ntentan PHP Framework Dev Tool');
 $options = $parser->parse();
 

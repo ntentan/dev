@@ -9,6 +9,14 @@ class Serve
 {
     protected string $phpBinaryArgs = '';
 
+    protected function buildCommand(array $options): string
+    {
+        $docroot = realpath(__DIR__ . "/../../../../../public");
+        $docroot = $docroot === false ? '.' : $docroot;
+        $options['docroot'] = $docroot;
+        return PHP_BINARY . " {$this->phpBinaryArgs} -d cli_server.color=1 -t {$docroot} -S {$options['host']}:{$options['port']} " . __DIR__ . "/../../src/router.php";        
+    }
+    
     public function run($options)
     {
         declare(ticks = 1)
@@ -19,18 +27,12 @@ class Serve
         }
 
         // Resolve the document root
-        $docroot = realpath(__DIR__ . "/../../../../../public");
-        $docroot = $docroot === false ? '.' : $docroot;
-        $options['docroot'] = $docroot;
         file_put_contents('.ntentan-dev.json', json_encode($options));
 
         // Setup and start the server process
         $spec = [STDOUT, STDIN, STDERR];
         $pipes = [];
-        $process = proc_open(
-            PHP_BINARY . " {$this->phpBinaryArgs} -d cli_server.color=1 -t {$docroot} -S {$options['host']}:{$options['port']} " . __DIR__ . "/../../src/router.php",
-            $spec, $pipes
-        );
+        $process = proc_open($this->buildCommand($options), $spec, $pipes);
         while(proc_get_status($process)['running']) {
             usleep(500);
         }
