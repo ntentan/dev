@@ -18,6 +18,7 @@ function run(): bool
 
     set_exception_handler(function (Throwable $exception) {
         http_response_code(500);
+        error_log("Exception {$exception->getMessage()}\n{$exception->getTraceAsString()}");
         require "exception.php";
         die();
     });
