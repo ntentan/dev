@@ -9,7 +9,6 @@ function run(): bool
 {
     $homeDirectory = __DIR__ . "/../../../..";
     $runtimeConfig = "$homeDirectory/.ntentan-dev.json";
-//    chdir("$homeDirectory/public/");
 
     $config = [];
     if(file_exists($runtimeConfig)) {
