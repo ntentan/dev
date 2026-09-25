@@ -107,16 +107,16 @@
         },
         {
             "name": "ntentan/honam",
-            "version": "v0.10.4",
+            "version": "v0.10.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ntentan/honam.git",
-                "reference": "98b82a5edab78db6453681aa3e4b124126cb39cb"
+                "reference": "05d7062e0760ba2055838e2227762c71be7ce1bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ntentan/honam/zipball/98b82a5edab78db6453681aa3e4b124126cb39cb",
-                "reference": "98b82a5edab78db6453681aa3e4b124126cb39cb",
+                "url": "https://api.github.com/repos/ntentan/honam/zipball/05d7062e0760ba2055838e2227762c71be7ce1bd",
+                "reference": "05d7062e0760ba2055838e2227762c71be7ce1bd",
                 "shasum": ""
             },
             "require": {
@@ -154,27 +154,28 @@
             "description": "The views component of the ntentan framework.",
             "support": {
                 "issues": "https://github.com/ntentan/honam/issues",
-                "source": "https://github.com/ntentan/honam/tree/v0.10.4"
+                "source": "https://github.com/ntentan/honam/tree/v0.10.5"
             },
-            "time": "2026-03-02T11:10:43+00:00"
+            "time": "2026-08-28T10:29:21+00:00"
         },
         {
             "name": "ntentan/kaikai",
-            "version": "v0.7.4",
+            "version": "v0.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ntentan/kaikai.git",
-                "reference": "93cb60ab8b4b642f800471cee4809121844e7cc1"
+                "reference": "a73b5af651fc73e623f71e0355abb4914e21d958"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ntentan/kaikai/zipball/93cb60ab8b4b642f800471cee4809121844e7cc1",
-                "reference": "93cb60ab8b4b642f800471cee4809121844e7cc1",
+                "url": "https://api.github.com/repos/ntentan/kaikai/zipball/a73b5af651fc73e623f71e0355abb4914e21d958",
+                "reference": "a73b5af651fc73e623f71e0355abb4914e21d958",
                 "shasum": ""
             },
             "require-dev": {
                 "mikey179/vfsstream": "@stable",
                 "php-mock/php-mock-phpunit": "@stable",
+                "phpstan/phpstan": "^2.2",
                 "phpunit/phpunit": "@stable"
             },
             "suggest": {
@@ -202,25 +203,26 @@
             "description": "Caching for Ntentan Framework",
             "support": {
                 "issues": "https://github.com/ntentan/kaikai/issues",
-                "source": "https://github.com/ntentan/kaikai/tree/v0.7.4"
+                "source": "https://github.com/ntentan/kaikai/tree/v0.7.6"
             },
-            "time": "2026-01-11T20:29:50+00:00"
+            "time": "2026-09-25T10:02:10+00:00"
         },
         {
             "name": "ntentan/ntentan",
-            "version": "v0.12.0",
+            "version": "v0.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ntentan/ntentan.git",
-                "reference": "a89ebd396b70a0c09a13e5a57fe217e62254f0f6"
+                "reference": "dab99848c7f25306359106cf87de2289934526c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ntentan/ntentan/zipball/a89ebd396b70a0c09a13e5a57fe217e62254f0f6",
-                "reference": "a89ebd396b70a0c09a13e5a57fe217e62254f0f6",
+                "url": "https://api.github.com/repos/ntentan/ntentan/zipball/dab99848c7f25306359106cf87de2289934526c7",
+                "reference": "dab99848c7f25306359106cf87de2289934526c7",
                 "shasum": ""
             },
             "require": {
+                "ntentan/kaikai": "^0.7.5",
                 "ntentan/panie": "0.*                               ",
                 "php": ">=8.4.0",
                 "psr/http-message": "^2.0",
@@ -229,6 +231,7 @@
             },
             "require-dev": {
                 "mockery/mockery": "^1.6",
+                "phpstan/phpstan": "^2.2",
                 "phpunit/phpunit": "@stable"
             },
             "type": "library",
@@ -252,22 +255,22 @@
             "description": "Another PHP application framework.",
             "support": {
                 "issues": "https://github.com/ntentan/ntentan/issues",
-                "source": "https://github.com/ntentan/ntentan/tree/v0.12.0"
+                "source": "https://github.com/ntentan/ntentan/tree/v0.13.0"
             },
-            "time": "2026-08-26T00:58:58+00:00"
+            "time": "2026-09-25T10:49:20+00:00"
         },
         {
             "name": "ntentan/panie",
-            "version": "v0.10.0",
+            "version": "v0.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ntentan/panie.git",
-                "reference": "d110d9f4f1f55e02b4d556b1646fc27677f0cf4e"
+                "reference": "5384d3c6754b6c8a568cbc11aff53281be4bcc1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ntentan/panie/zipball/d110d9f4f1f55e02b4d556b1646fc27677f0cf4e",
-                "reference": "d110d9f4f1f55e02b4d556b1646fc27677f0cf4e",
+                "url": "https://api.github.com/repos/ntentan/panie/zipball/5384d3c6754b6c8a568cbc11aff53281be4bcc1b",
+                "reference": "5384d3c6754b6c8a568cbc11aff53281be4bcc1b",
                 "shasum": ""
             },
             "require": {
@@ -275,6 +278,7 @@
                 "psr/container": "^1.0"
             },
             "require-dev": {
+                "phpstan/phpstan": "^2.2",
                 "phpunit/phpunit": "@stable"
             },
             "type": "library",
@@ -297,9 +301,9 @@
             "description": "A thin DI container for NtentanFX",
             "support": {
                 "issues": "https://github.com/ntentan/panie/issues",
-                "source": "https://github.com/ntentan/panie/tree/v0.10.0"
+                "source": "https://github.com/ntentan/panie/tree/v0.11.0"
             },
-            "time": "2026-08-27T02:28:56+00:00"
+            "time": "2026-09-25T12:38:17+00:00"
         },
         {
             "name": "ntentan/utils",
