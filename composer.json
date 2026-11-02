@@ -21,7 +21,7 @@
         "ntentan/ntentan": "@stable",
         "ntentan/kaikai": "@stable",
         "ext-pcntl": "*",
-        "scssphp/scssphp": "~1.12",
+        "scssphp/scssphp": "^2.1.0",
         "ext-json": "*"
     },
     "bin" : ["bin/ntentan"]
