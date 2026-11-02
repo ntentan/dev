@@ -10,7 +10,8 @@
     ],
     "autoload" : {
         "psr-4" : { 
-            "ntentan\\dev\\" : "src/"
+            "ntentan\\dev\\" : "src/",
+            "ntentan\\dev\\tests\\" : "tests/"
         }
     },
     "require": {
@@ -23,6 +24,13 @@
         "ext-pcntl": "*",
         "scssphp/scssphp": "^2.1.0",
         "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "@stable",
+        "mockery/mockery": "^1.6"
+    },
+    "scripts": {
+        "test": "phpunit"
     },
     "bin" : ["bin/ntentan"]
 }

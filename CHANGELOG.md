@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.7.0] - 2026-11-02
+
+### Added
+- Unit tests for asset builders, asset pipeline, CLI commands, application initialization, and testing utilities.
+
+### Changed
+- Updated `scssphp/scssphp` to `^2.1.0`.
+
+## [v0.6.2] - 2026-09-25
+
+### Changed
+- Cleaned up the development router.
+- Updated dependencies.
+
 ## [v0.6.1] - 2026-08-26
 
 ### Changed
@@ -45,7 +59,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - First release with a changelog.
 
-[Unreleased]: https://github.com/ntentan/dev/compare/v0.6.1...HEAD
+[Unreleased]: https://github.com/ntentan/dev/compare/v0.7.0...HEAD
+[v0.7.0]: https://github.com/ntentan/dev/compare/v0.6.2...v0.7.0
+[v0.6.2]: https://github.com/ntentan/dev/compare/v0.6.1...v0.6.2
 [v0.6.1]: https://github.com/ntentan/dev/compare/v0.6.0...v0.6.1
 [v0.6.0]: https://github.com/ntentan/dev/compare/v0.5.0...v0.6.0
 [v0.5.0]: https://github.com/ntentan/dev/compare/v0.4.0...v0.5.0
